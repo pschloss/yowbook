@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   get '/news',    to: 'static_pages#news'
 
 	get '/signup',	to: 'users#new'
+	post '/signup', to: 'users#create'
+	resources :users
 end
