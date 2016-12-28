@@ -51,7 +51,7 @@ class ShepherdsController < ApplicationController
 
 	private
 		def shepherd_params
-			params.require(:shepherd).permit(:name, :email, :password, :password_confirmation)
+			params.require(:shepherd).permit(:name, :username, :email, :password, :password_confirmation)
 		end
 
 

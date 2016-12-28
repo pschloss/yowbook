@@ -3,8 +3,11 @@ require 'test_helper'
 class ShepherdTest < ActiveSupport::TestCase
 
 	def setup
-		@shepherd = Shepherd.new(name: "Example Shepherd", email: "shepherd@example.com",
-										password: "foobar", password_confirmation: "foobar")
+		@shepherd = Shepherd.new(	name: "Example Shepherd",
+															username: "ExampleShepherd",
+															email: "shepherd@example.com",
+															password: "foobar",
+															password_confirmation: "foobar")
 	end
 
 	test "should be valid" do
@@ -16,28 +19,19 @@ class ShepherdTest < ActiveSupport::TestCase
 		assert_not @shepherd.valid?
 	end
 
-	test "email should not be valid" do
-		@shepherd.email = "        "
-		assert_not @shepherd.valid?
-	end
-
 	test "name should not be too long" do
 		@shepherd.name = "a" * 51
 		assert_not @shepherd.valid?
 	end
 
+
+	test "email should not be valid" do
+		@shepherd.email = "        "
+		assert_not @shepherd.valid?
+	end
+
 	test "email should not be too long" do
 		@shepherd.email = "a" * 244 + "@example.com"
-		assert_not @shepherd.valid?
-	end
-
-	test "password should be present" do
-		@shepherd.password = @shepherd.password_confirmation = " " * 6
-		assert_not @shepherd.valid?
-	end
-
-	test "password should have a minimum length" do
-		@shepherd.password = @shepherd.password_confirmation = "a" * 5
 		assert_not @shepherd.valid?
 	end
 
@@ -72,6 +66,50 @@ class ShepherdTest < ActiveSupport::TestCase
 		@shepherd.save
 		assert_equal mixed_case_email.downcase, @shepherd.reload.email
 	end
+
+
+	test "username should not be valid" do
+		@shepherd.username = "        "
+		assert_not @shepherd.valid?
+	end
+
+	test "username should not be too long" do
+		@shepherd.username = "a" * 51
+		assert_not @shepherd.valid?
+	end
+
+	test "username should not contain spaces" do
+		@shepherd.username = "foo bar"
+		assert_not @shepherd.valid?
+	end
+
+	test "username should be saved as lowercase" do
+		mixed_case_username = "FoObAr"
+		@shepherd.username = mixed_case_username
+		@shepherd.save
+		assert_equal mixed_case_username.downcase, @shepherd.reload.username
+	end
+
+  test "username validation should accept valid usernames" do
+    valid_usernames = %w[foobar foo_bar foo.bar foo-bar foo1bar foo!bar]
+    valid_usernames.each do |valid_username|
+      @shepherd.username = valid_username
+      assert @shepherd.valid?, "#{@shepherd.username} #{valid_username.inspect} should be valid"
+		end
+	end
+
+
+
+	test "password should be present" do
+		@shepherd.password = @shepherd.password_confirmation = " " * 6
+		assert_not @shepherd.valid?
+	end
+
+	test "password should have a minimum length" do
+		@shepherd.password = @shepherd.password_confirmation = "a" * 5
+		assert_not @shepherd.valid?
+	end
+
 
 	test "authenticated? should return false for a shepherd with nil digest" do
 		assert_not @shepherd.authenticated?(:remember, '')

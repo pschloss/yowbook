@@ -11,11 +11,12 @@ class ShepherdsEditTest < ActionDispatch::IntegrationTest
 		get edit_shepherd_path(@shepherd)
 		assert_template 'shepherds/edit'
 		patch shepherd_path(@shepherd), params: { shepherd: { name: "",
+																							username: "",
 																							email: "foo@invalid",
 																							password: "foo",
 																							password_confirmation: "bar" } }
 		assert_template 'shepherds/edit'
-		assert_select 'div#error_explanation li', count: 4
+		assert_select 'div#error_explanation li', count: 5
 	end
 
 	test "successful edit with friendly forwarding" do
@@ -26,8 +27,10 @@ class ShepherdsEditTest < ActionDispatch::IntegrationTest
 		get edit_shepherd_path(@shepherd)
 		assert_template 'shepherds/edit'
 		name = "Foo Bar"
+		username = "foobar"
 		email = "foo@bar.com"
 		patch shepherd_path(@shepherd), params: { shepherd: { name: name,
+																							username: username,
 																							email: email,
 																							password: "",
 																							password_confirmation: "" } }
@@ -35,6 +38,7 @@ class ShepherdsEditTest < ActionDispatch::IntegrationTest
 		assert_redirected_to @shepherd
 		@shepherd.reload
 		assert_equal name, @shepherd.name
+		assert_equal username, @shepherd.username
 		assert_equal email, @shepherd.email
 	end
 

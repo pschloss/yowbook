@@ -10,6 +10,7 @@ class ShepherdsSignupTest < ActionDispatch::IntegrationTest
 		get signup_path
 		assert_no_difference 'Shepherd.count' do
 			post shepherds_path, params: { shepherd: {  name: "",
+																					username: "foo bar",
 																					email: "foo@bar",
 																					password: "foo",
  																					password_confirmation: "bar"
@@ -17,14 +18,15 @@ class ShepherdsSignupTest < ActionDispatch::IntegrationTest
 																}
 		end
 		assert_template 'shepherds/new'
-		assert_select "div#error_explanation"
 		assert_select "div.field_with_errors"
+		assert_select 'div#error_explanation li', count: 5
 	end
 
 	test "valid signup information with account activation" do
 		get signup_path
 		assert_difference 'Shepherd.count', 1 do
-			post shepherds_path, params: { shepherd: {  name:                  "Example Shepherd",
+			post shepherds_path, params: { shepherd: {  name: "Example Shepherd",
+																					username: "foobar",
 																					email:                 "shepherd@example.com",
 																					password:              "password",
  																					password_confirmation: "password" } }

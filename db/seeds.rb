@@ -1,4 +1,5 @@
-Shepherd.create!(name:                 "Example Shepherd",
+Shepherd.create!(name:             "Example Shepherd",
+						username:              "Example",
 						email:                 "example@railstutorial.org",
 						password:              "foobar",
 						password_confirmation: "foobar",
@@ -10,7 +11,8 @@ Shepherd.create!(name:                 "Example Shepherd",
 	name = Faker::Name.name
 	email = "example-#{n+1}@railstutorial.org"
 	password = "password"
-	Shepherd.create!(	name:                  name,
+	Shepherd.create!(	name:              name,
+								username:              "Example_#{n+1}",
 								email:                 email,
 								password:              password,
 								password_confirmation: password,

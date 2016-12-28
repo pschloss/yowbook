@@ -1,5 +1,6 @@
 michael:
   name: Michael Example
+  username: MichaelExample
   email: michael@example.com
   password_digest: <%= Shepherd.digest('password') %>
   admin: true
@@ -8,6 +9,7 @@ michael:
 
 archer:
   name: Sterling Archer
+  username: SterlingArcher
   email: duchess@example.gov
   password_digest: <%= Shepherd.digest('password') %>
   activated: true
@@ -15,6 +17,7 @@ archer:
 
 lana:
   name: Lana Kane
+  username: LanaKane
   email: hands@example.gov
   password_digest: <%= Shepherd.digest('password') %>
   activated: true
@@ -22,6 +25,7 @@ lana:
 
 malory:
   name: Malory Archer
+  username: MaloryArcher
   email: boss@example.gov
   password_digest: <%= Shepherd.digest('password') %>
   activated: true
@@ -30,6 +34,7 @@ malory:
 <% 30.times do |n| %>
 Shepherd_<%= n %>:
   name: <%= "Shepherd #{n}" %>
+  username: <%= "Shepherd_#{n}" %>
   email: <%= "Shepherd-#{n}@example.com" %>
   password_digest: <%= Shepherd.digest('password') %>
   activated: true
