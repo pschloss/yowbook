@@ -35,8 +35,8 @@ class ShepherdsEditTest < ActionDispatch::IntegrationTest
 																							password: "",
 																							password_confirmation: "" } }
 		assert_not flash.empty?
-		assert_redirected_to @shepherd
 		@shepherd.reload
+		assert_redirected_to @shepherd
 		assert_equal name, @shepherd.name
 		assert_equal username, @shepherd.username
 		assert_equal email, @shepherd.email

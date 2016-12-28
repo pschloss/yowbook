@@ -9,7 +9,7 @@ class ShepherdsController < ApplicationController
 
 
 	def show
-		@shepherd = Shepherd.find(params[:id])
+		@shepherd = Shepherd.friendly.find(params[:id])
 		redirect_to root_url and return unless @shepherd.activated
 	end
 
@@ -29,11 +29,11 @@ class ShepherdsController < ApplicationController
 	end
 
 	def edit
-		@shepherd = Shepherd.find(params[:id])
+		@shepherd = Shepherd.friendly.find(params[:id])
 	end
 
 	def update
-		@shepherd = Shepherd.find(params[:id])
+		@shepherd = Shepherd.friendly.find(params[:id])
 
 		if @shepherd.update_attributes(shepherd_params)
 			flash[:success] = "Profile updated"
@@ -44,7 +44,7 @@ class ShepherdsController < ApplicationController
 	end
 
 	def destroy
-		Shepherd.find(params[:id]).destroy
+		Shepherd.friendly.find(params[:id]).destroy
 		flash[:success] = "Shepherd deleted"
 		redirect_to shepherds_url
 	end
@@ -68,7 +68,7 @@ class ShepherdsController < ApplicationController
 
 		#Confirms the correct shepherd
 		def correct_shepherd
-			@shepherd = Shepherd.find(params[:id])
+			@shepherd = Shepherd.friendly.find(params[:id])
 			redirect_to(root_url) unless current_shepherd?(@shepherd)
 		end
 
