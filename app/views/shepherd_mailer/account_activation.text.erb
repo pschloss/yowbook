@@ -1,0 +1,8 @@
+Hi <%= @shepherd.name %>,
+
+Welcome to Yowbook! Click on the link below to activate your account:
+
+<%= edit_account_activation_url(@shepherd.activation_token, email: @shepherd.email) %>
+
+Thanks,
+The Yowbook Team

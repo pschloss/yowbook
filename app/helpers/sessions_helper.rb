@@ -1,49 +1,49 @@
 module SessionsHelper
 
-	# Logs in the given user.
-	def log_in(user)
-		session[:user_id] = user.id
+	# Logs in the given shepherd.
+	def log_in(shepherd)
+		session[:shepherd_id] = shepherd.id
 	end
 
-	# Remembers a user in a persistent session
-	def remember(user)
-		user.remember
-		cookies.permanent.signed[:user_id] = user.id
-		cookies.permanent[:remember_token] = user.remember_token
+	# Remembers a shepherd in a persistent session
+	def remember(shepherd)
+		shepherd.remember
+		cookies.permanent.signed[:shepherd_id] = shepherd.id
+		cookies.permanent[:remember_token] = shepherd.remember_token
 	end
 
-	def current_user?(user)
-		user == current_user
+	def current_shepherd?(shepherd)
+		shepherd == current_shepherd
 	end
 
-	# Returns the current logged-in user (if any).
-	def current_user
-		if(user_id = session[:user_id])
-			@current_user ||= User.find_by(id: user_id)
-		elsif(user_id = cookies.signed[:user_id])
-			user = User.find_by(id: user_id)
-			if user && user.authenticated?(:remember, cookies[:remember_token])
-				log_in user
-				@current_user = user
+	# Returns the current logged-in shepherd (if any).
+	def current_shepherd
+		if(shepherd_id = session[:shepherd_id])
+			@current_shepherd ||= Shepherd.find_by(id: shepherd_id)
+		elsif(shepherd_id = cookies.signed[:shepherd_id])
+			shepherd = Shepherd.find_by(id: shepherd_id)
+			if shepherd && shepherd.authenticated?(:remember, cookies[:remember_token])
+				log_in shepherd
+				@current_shepherd = shepherd
 			end
 		end
 	end
 
-	# Returns true if the user is logged in, false otherwise.
+	# Returns true if the shepherd is logged in, false otherwise.
 	def logged_in?
-		!current_user.nil?
+		!current_shepherd.nil?
 	end
 
-	def forget(user)
-		user.forget
-		cookies.delete(:user_id)
+	def forget(shepherd)
+		shepherd.forget
+		cookies.delete(:shepherd_id)
 		cookies.delete(:remember_token)
 	end
 
 	def log_out
-		forget(current_user)
-		session.delete(:user_id)
-		@current_user = nil
+		forget(current_shepherd)
+		session.delete(:shepherd_id)
+		@current_shepherd = nil
 	end
 
 	def redirect_back_or(default)

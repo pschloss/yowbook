@@ -1,16 +1,16 @@
 class PasswordResetsController < ApplicationController
-	before_action :get_user,         only: [:edit, :update]
-	before_action :valid_user,       only: [:edit, :update]
+	before_action :get_shepherd,         only: [:edit, :update]
+	before_action :valid_shepherd,       only: [:edit, :update]
 	before_action :check_expiration, only: [:edit, :update]
 
   def new
   end
 
 	def create
-		@user = User.find_by(email: params[:password_reset][:email].downcase)
-		if @user
-			@user.create_reset_digest
-			@user.send_password_reset_email
+		@shepherd = Shepherd.find_by(email: params[:password_reset][:email].downcase)
+		if @shepherd
+			@shepherd.create_reset_digest
+			@shepherd.send_password_reset_email
 			flash[:info] = "Email sent with password reset instructions"
 			redirect_to root_url
 		else
@@ -23,14 +23,14 @@ class PasswordResetsController < ApplicationController
   end
 
 	def update
-		if params[:user][:password].empty?
-			@user.errors.add(:password, "can't be empty")
+		if params[:shepherd][:password].empty?
+			@shepherd.errors.add(:password, "can't be empty")
 			render 'edit'
-		elsif @user.update_attributes(user_params)
-			log_in @user
-			@user.update_attribute(:reset_digest, nil)
+		elsif @shepherd.update_attributes(shepherd_params)
+			log_in @shepherd
+			@shepherd.update_attribute(:reset_digest, nil)
 			flash[:success] = "Password has been reset."
-			redirect_to @user
+			redirect_to @shepherd
 		else
 			render 'edit'
 		end
@@ -39,23 +39,23 @@ class PasswordResetsController < ApplicationController
 
 
 	private
-		def user_params
-			params.require(:user).permit(:password, :password_confirmation)
+		def shepherd_params
+			params.require(:shepherd).permit(:password, :password_confirmation)
 		end
 
 
-		def get_user
-			@user = User.find_by(email: params[:email])
+		def get_shepherd
+			@shepherd = Shepherd.find_by(email: params[:email])
 		end
 
-		def valid_user
-			unless(@user && @user.activated? && @user.authenticated?(:reset, params[:id]))
+		def valid_shepherd
+			unless(@shepherd && @shepherd.activated? && @shepherd.authenticated?(:reset, params[:id]))
 				redirect_to root_url
 			end
 		end
 
 		def check_expiration
-			if @user.password_reset_expired?
+			if @shepherd.password_reset_expired?
 				flash[:danger] = "Password reset has expired."
 				redirect_to new_password_reset_url
 			end

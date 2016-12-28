@@ -1,12 +1,12 @@
 class AccountActivationsController < ApplicationController
 
 	def edit
-		user = User.find_by(email: params[:email])
-		if user && !user.activated? && user.authenticated?(:activation, params[:id])
-			user.activate
-			log_in user
+		shepherd = Shepherd.find_by(email: params[:email])
+		if shepherd && !shepherd.activated? && shepherd.authenticated?(:activation, params[:id])
+			shepherd.activate
+			log_in shepherd
 			flash[:success] = "Account activated"
-			redirect_to user
+			redirect_to shepherd
 		else
 			flash[:danger] = "Invalid activation link"
 			redirect_to root_url

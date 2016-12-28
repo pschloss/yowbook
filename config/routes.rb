@@ -10,13 +10,13 @@ Rails.application.routes.draw do
   get '/contact',   to: 'static_pages#contact'
   get '/news',      to: 'static_pages#news'
 
-	get '/signup',    to: 'users#new'
+	get '/signup',    to: 'shepherds#new'
 
 	get '/login',     to: 'sessions#new'
 	post '/login',    to: 'sessions#create'
 	delete '/logout', to: 'sessions#destroy'
 
-	resources :users
+	resources :shepherds
 	resources :account_activations, only: [:edit]
 	resources :password_resets,     only: [:new, :create, :edit, :update]
 end

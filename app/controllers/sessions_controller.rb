@@ -3,14 +3,14 @@ class SessionsController < ApplicationController
   end
 
 	def create
-		user = User.find_by(email: params[:session][:email].downcase)
+		shepherd = Shepherd.find_by(email: params[:session][:email].downcase)
 
-		if user && user.authenticate(params[:session][:password])
-			if user.activated?
-				log_in user
-				params[:session][:remember_me] == '1' ? remember(user) : forget(user)
+		if shepherd && shepherd.authenticate(params[:session][:password])
+			if shepherd.activated?
+				log_in shepherd
+				params[:session][:remember_me] == '1' ? remember(shepherd) : forget(shepherd)
 				flash[:success] = "Welcome back to Yowbook!"
-				redirect_back_or user
+				redirect_back_or shepherd
 			else
 				message = "Account not activated. "
 				message += "Check your email for the activation link"

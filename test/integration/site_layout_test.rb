@@ -17,7 +17,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
 
 	test "signup process" do
 		get signup_path
-		assert_template 'users/new'
+		assert_template 'shepherds/new'
 
 		assert_select "title", full_title("Sign up")
 	end
