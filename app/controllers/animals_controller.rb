@@ -23,11 +23,12 @@ class AnimalsController < ApplicationController
 	private
 
 		def animal_params
-			params.require(:animal).permit(:eartag, :birth_date)
+			params.require(:animal).permit(:eartag, :birth_date, :picture)
 		end
 
 		def correct_shepherd
 			@animal = current_shepherd.animals.find_by(id: params[:id])
 			redirect_to root_url if @animal.nil?
 		end
+
 end

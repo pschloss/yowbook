@@ -19,3 +19,9 @@
 
 # Ignore Byebug command history file.
 .byebug_history
+
+
+# Ignore uploaded test images
+/public/uploads
+
+aws_info

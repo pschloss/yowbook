@@ -10,7 +10,7 @@ class AnimalsInterfaceTest < ActionDispatch::IntegrationTest
 		log_in_as(@shepherd)
 		get root_path
 		assert_select 'div.pagination'
-
+		assert_select 'input[type=file]'
 		#invalid submission
 		assert_no_difference 'Animal.count' do
 			post animals_path, params: { animal: { eartag: "" } }
@@ -20,10 +20,13 @@ class AnimalsInterfaceTest < ActionDispatch::IntegrationTest
 		#valid submission
 		eartag = "123ABC"
 		birth_date = "2016-04-20"
+		picture = fixture_file_upload('images/rails.png', 'image/png')
 		assert_difference 'Animal.count', 1 do
-			post animals_path, params: { animal: { eartag: eartag,
-																										birth_date: birth_date } }
+			post animals_path, params: { animal: {  eartag: eartag,
+																							birth_date: birth_date,
+ 																							picture: picture} }
 		end
+		assert assigns(:animal).picture?
 		assert_redirected_to root_url
 		follow_redirect!
 

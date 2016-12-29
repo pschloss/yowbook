@@ -1,7 +1,10 @@
 <li id="animal-<%= animal.eartag %>">
 	<%= link_to gravatar_for(animal.shepherd, size: 50), animal.shepherd %>
 	<span class="shepherd"><%= link_to animal.shepherd.name, animal.shepherd %></span>
-	<span class="eartag"><%= animal.eartag %></span>
+	<span class="eartag">
+		<%= animal.eartag %>
+		<%= image_tag animal.picture.url if animal.picture? %>
+	</span>
 	<span class="timestamp">
 		Born <%= animal.birth_date %>.
 		<% if current_shepherd?(animal.shepherd) %>
