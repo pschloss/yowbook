@@ -20,9 +20,18 @@ Shepherd.create!(name:             "Example Shepherd",
 								activated_at:          Time.zone.now)
 end
 
+# Animals
 shepherds = Shepherd.order(:created_at).take(6)
 50.times do
 	eartag = Faker::Number.number(4)
 	birth_date = Faker::Date.between(10.months.ago, 8.months.ago)
 	shepherds.each { |shepherd| shepherd.animals.create!(eartag: eartag, birth_date: birth_date) }
 end
+
+# Following relationships
+shepherds = Shepherd.all
+shepherd = shepherds.first
+following = shepherds[2..50]
+followers = shepherds[3..40]
+following.each { |followed| shepherd.follow(followed) }
+followers.each { |follower| follower.follow(shepherd) }

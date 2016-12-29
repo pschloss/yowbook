@@ -1,5 +1,6 @@
 class ShepherdsController < ApplicationController
-	before_action :logged_in_shepherd, only: [:index, :edit, :update, :destroy]
+	before_action :logged_in_shepherd, only: [:index, :edit, :update, :destroy,
+																						:followers, :following]
 	before_action :correct_shepherd,   only: [:edit, :update]
 	before_action :admin_shepherd,     only: :destroy
 
@@ -48,6 +49,22 @@ class ShepherdsController < ApplicationController
 		Shepherd.friendly.find(params[:id]).destroy
 		flash[:success] = "Shepherd deleted"
 		redirect_to shepherds_url
+	end
+
+	def following
+		#needs to set a title, find the user, retrieve either @user.following
+		@title = "Following"
+		@shepherd = Shepherd.friendly.find(params[:id])
+		@shepherds = @shepherd.following.paginate(page: params[:page])
+		render 'show_follow'
+	end
+
+	def followers
+		#needs to set a title, find the user, retrieve either @user.following
+		@title = "Followers"
+		@shepherd = Shepherd.friendly.find(params[:id])
+		@shepherds = @shepherd.followers.paginate(page: params[:page])
+		render 'show_follow'
 	end
 
 	private

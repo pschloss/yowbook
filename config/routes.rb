@@ -16,8 +16,14 @@ Rails.application.routes.draw do
 	post '/login',    to: 'sessions#create'
 	delete '/logout', to: 'sessions#destroy'
 
+	resources :shepherds do
+		member do
+			get :following, :followers
+		end
+	end
 	resources :shepherds
 	resources :account_activations, only: [:edit]
 	resources :password_resets,     only: [:new, :create, :edit, :update]
 	resources :animals,             only: [:create, :destroy]
+	resources :relationships,       only: [:create, :destroy]
 end

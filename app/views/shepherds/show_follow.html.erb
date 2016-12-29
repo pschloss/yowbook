@@ -1,0 +1,30 @@
+<% provide(:title, @title) %>
+<div class="row">
+	<aside class="col-md-4">
+		<section class="shepherd_info">
+			<%= gravatar_for @shepherd %>
+			<h1><%= @shepherd.name %></h1>
+			<span><%= link_to "view my profile", @shepherd %></span>
+			<span><b>Sheep:</b> <%= @shepherd.animals.count %></span>
+		</section>
+		<section class="stats">
+			<%= render 'shared/stats' %>
+			<% if @shepherds.any? %>
+				<div class="shepherd_avatars">
+					<% @shepherds.each do |shepherd| %>
+						<%= link_to gravatar_for(shepherd, size: 30), shepherd %>
+					<% end %>
+				</div>
+			<% end %>
+		</section>
+	</aside>
+	<div class="col-md-8">
+		<h3><%= @title %></h3>
+		<% if @shepherds.any? %>
+			<ul class="shepherds follow">
+				<%= render @shepherds %>
+			</ul>
+			<%= will_paginate %>
+		<% end %>
+	</div>
+</div>
