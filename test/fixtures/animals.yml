@@ -1,0 +1,46 @@
+first:
+  eartag: "12345G"
+  birth_date: <%= Date.civil(10.months.ago.year, 10.months.ago.month, 10.months.ago.day) %>
+  shepherd: michael
+
+second:
+  eartag: "12345F"
+  birth_date: <%= Date.civil(10.months.ago.year, 10.months.ago.month, 10.months.ago.day) %>
+  shepherd: michael
+
+fifth:
+  eartag: "0"
+  birth_date: <%= Date.civil(10.months.ago.year, 10.months.ago.month, 10.months.ago.day) %>
+  shepherd: michael
+
+third:
+  eartag: "22335A"
+  birth_date: <%= Date.civil(11.months.ago.year, 11.months.ago.month, 11.months.ago.day) %>
+  shepherd: michael
+
+fourth:
+  eartag: "88345P"
+  birth_date: <%= Date.civil(5.months.ago.year, 5.months.ago.month, 5.months.ago.day) %>
+  shepherd: michael
+
+<% 30.times do |n| %>
+sheep_<%= n %>:
+  eartag: Faker::Number.number(4)
+  birth_date: Faker::Date.between(10.months.ago, 8.months.ago)
+  shepherd: michael
+<% end %>
+
+
+<% 30.times do |n| %>
+archer_sheep_<%= n %>:
+  eartag: Faker::Number.number(4)
+  birth_date: Faker::Date.between(10.months.ago, 8.months.ago)
+  shepherd: archer
+<% end %>
+
+<% 30.times do |n| %>
+lana_sheep_<%= n %>:
+  eartag: Faker::Number.number(4)
+  birth_date: Faker::Date.between(10.months.ago, 8.months.ago)
+  shepherd: lana
+<% end %>

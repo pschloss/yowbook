@@ -10,6 +10,8 @@ class ShepherdTest < ActiveSupport::TestCase
 															password_confirmation: "foobar")
 	end
 
+
+
 	test "should be valid" do
 		assert @shepherd.valid?
 	end
@@ -23,6 +25,7 @@ class ShepherdTest < ActiveSupport::TestCase
 		@shepherd.name = "a" * 51
 		assert_not @shepherd.valid?
 	end
+
 
 
 	test "email should not be valid" do
@@ -68,6 +71,7 @@ class ShepherdTest < ActiveSupport::TestCase
 	end
 
 
+
 	test "username should not be valid" do
 		@shepherd.username = "        "
 		assert_not @shepherd.valid?
@@ -111,7 +115,19 @@ class ShepherdTest < ActiveSupport::TestCase
 	end
 
 
+
 	test "authenticated? should return false for a shepherd with nil digest" do
 		assert_not @shepherd.authenticated?(:remember, '')
 	end
+
+
+
+	test "associated microposts should be destroyed" do
+		@shepherd.save
+		@shepherd.animals.create!(eartag: "12345G", birth_date: Date.civil(2015,4,30) )
+		assert_difference 'Animal.count', -1 do
+			@shepherd.destroy
+		end
+	end
+
 end

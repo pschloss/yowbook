@@ -11,6 +11,7 @@ class ShepherdsController < ApplicationController
 	def show
 		@shepherd = Shepherd.friendly.find(params[:id])
 		redirect_to root_url and return unless @shepherd.activated
+		@animals = @shepherd.animals.paginate(page: params[:page])
 	end
 
   def new
@@ -56,15 +57,6 @@ class ShepherdsController < ApplicationController
 
 
 		#Before filters
-
-		#Confirms a logged in shepherd
-		def logged_in_shepherd
-			unless logged_in?
-				store_location
-				flash[:danger] = "Please log in."
-				redirect_to login_url
-			end
-		end
 
 		#Confirms the correct shepherd
 		def correct_shepherd

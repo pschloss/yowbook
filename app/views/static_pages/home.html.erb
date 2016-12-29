@@ -1,9 +1,26 @@
-<div class="center jumbotron">
-	<h1>Yowbook</h1>
-	<h2>
-		This is the home page for the <%=link_to "Yow Book", root_path %> web application.
-	</h2>
-	<%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
-</div>
+<% if logged_in? %>
+	<div class="row">
+		<aside class="col-md-4">
+			<section class="shepherd_info">
+				<%= render 'shared/shepherd_info' %>
+			</section>
+			<section class="animal_form">
+				<%= render 'shared/animal_form' %>
+			</section>
+		</aside>
+		<div class="col-md-8">
+			<h3>Sheep</h3>
+			<%= render 'shared/feed' %>
+		</div>
+	</div>
+<% else %>
+	<div class="center jumbotron">
+		<h1>Yowbook</h1>
+		<h2>
+			This is the home page for the <%=link_to "Yow Book", root_path %> web application.
+		</h2>
+		<%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+	</div>
 
-<%= link_to image_tag("rails.png", alt: "Rails logo"), 'http://rubyonrails.org/' %>
+	<%= link_to image_tag("rails.png", alt: "Rails logo"), 'http://rubyonrails.org/' %>
+<% end %>

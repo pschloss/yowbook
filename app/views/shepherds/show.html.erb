@@ -8,4 +8,14 @@
 			</h1>
 		</section>
 	</aside>
+
+	<div class="col-md-8">
+		<% if @shepherd.animals.any? %>
+			<h3>Sheep (<%= @shepherd.animals.count %>)</h3>
+			<ol class="animals">
+				<%= render @animals %>
+			</ol>
+			<%= will_paginate @animals %>
+		<% end %>
+	</div>
 </div>

@@ -1,0 +1,4 @@
+<%= link_to gravatar_for(current_shepherd, size: 50), current_shepherd %>
+<h1><%= current_shepherd.name %></h1>
+<span><%= link_to "view my profile", current_shepherd %></span>
+<span><%= pluralize(current_shepherd.animals.count, "sheep") %></span>

@@ -19,3 +19,10 @@ Shepherd.create!(name:             "Example Shepherd",
 								activated:             true,
 								activated_at:          Time.zone.now)
 end
+
+shepherds = Shepherd.order(:created_at).take(6)
+50.times do
+	eartag = Faker::Number.number(4)
+	birth_date = Faker::Date.between(10.months.ago, 8.months.ago)
+	shepherds.each { |shepherd| shepherd.animals.create!(eartag: eartag, birth_date: birth_date) }
+end

@@ -1,4 +1,6 @@
 class Shepherd < ApplicationRecord
+	has_many :animals, dependent: :destroy
+
   extend FriendlyId
 	friendly_id :username
 	attr_accessor :remember_token, :activation_token, :reset_token
@@ -65,6 +67,10 @@ class Shepherd < ApplicationRecord
 		reset_sent_at < 2.hours.ago
 	end
 
+
+	def feed
+		Animal.where("shepherd_id = ?", id)
+	end
 
 	private
 
