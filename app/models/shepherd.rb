@@ -82,6 +82,7 @@ class Shepherd < ApplicationRecord
 		Animal.where("shepherd_id = ?", id)
 	end
 
+
 	def follow(other_shepherd)
 		active_relationships.create(followed_id: other_shepherd.id)
 	end

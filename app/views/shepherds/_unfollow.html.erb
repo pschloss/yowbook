@@ -1,4 +1,5 @@
 <%= form_for(current_shepherd.active_relationships.find_by(followed_id: @shepherd.id),
-																		html: { method: :delete }) do |f| %>
+																		html: { method: :delete },
+																		remote: true) do |f| %>
 	<%= f.submit "Unfollow", class: "btn" %>
 <% end %>
