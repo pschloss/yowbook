@@ -78,8 +78,8 @@ class ShepherdsControllerTest < ActionDispatch::IntegrationTest
 	end
 
 	test "should redirect following when not logged in" do
-		$stdout.puts @shepherd.id
-		$stdout.puts following_shepherd_path(@shepherd)
+		# $stdout.puts @shepherd.id
+		# $stdout.puts following_shepherd_path(@shepherd)
 		get following_shepherd_path(@shepherd)
 		assert_redirected_to login_url
 	end

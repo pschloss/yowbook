@@ -141,4 +141,28 @@ class ShepherdTest < ActiveSupport::TestCase
 		michael.unfollow(archer)
 		assert_not michael.following?(archer)
 	end
+
+
+	test "feed should have the right posts" do
+		michael = shepherds(:michael)
+		archer = shepherds(:archer)
+		lana = shepherds(:lana)
+
+		#posts from followed user
+		lana.animals.each do |animal_following|
+			assert michael.feed.include?(animal_following)
+		end
+
+		#posts from self
+		michael.animals.each do |animal_self|
+			assert michael.feed.include?(animal_self)
+		end
+
+		#posts from unfollowed user
+		archer.animals.each do |animal_unfollowed|
+			assert_not michael.feed.include?(animal_unfollowed)
+		end
+
+
+	end
 end

@@ -79,7 +79,9 @@ class Shepherd < ApplicationRecord
 
 
 	def feed
-		Animal.where("shepherd_id = ?", id)
+		following_ids = "SELECT followed_id FROM relationships WHERE follower_id = :shepherd_id"
+
+		Animal.where("shepherd_id IN (#{following_ids}) OR shepherd_id = :shepherd_id", shepherd_id: id)
 	end
 
 
