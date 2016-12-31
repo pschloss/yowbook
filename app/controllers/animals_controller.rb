@@ -8,8 +8,8 @@ class AnimalsController < ApplicationController
 			flash[:success] = "Sheep added!"
 			redirect_to root_url
 		else
-			@feed_items = []
-			render 'static_pages/home'
+			flash[:danger] = "You must add an eartag number and a birth date"
+			redirect_to root_url
 		end
 	end
 

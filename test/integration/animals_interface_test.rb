@@ -15,7 +15,8 @@ class AnimalsInterfaceTest < ActionDispatch::IntegrationTest
 		assert_no_difference 'Animal.count' do
 			post animals_path, params: { animal: { eartag: "" } }
 		end
-		assert_select 'div#error_explanation'
+		follow_redirect!
+		assert_match 'You must add an eartag number and a birth date', response.body
 
 		#valid submission
 		eartag = "123ABC"

@@ -13,9 +13,13 @@ class ShepherdsIndexTest < ActionDispatch::IntegrationTest
 		assert_template 'shepherds/index'
 		assert_select 'div.pagination'
 		first_page_of_shepherds = Shepherd.paginate(page: 1)
+
+		#logged in user should not appear in the list of shepherds
+		assert_no_match @admin.name, response.body
+
 		first_page_of_shepherds.each do |shepherd|
-			assert_select 'a[href=?]', shepherd_path(shepherd), text: shepherd.name
 			unless shepherd == @admin
+				assert_select 'a[href=?]', shepherd_path(shepherd), text: shepherd.name
 				assert_select 'a[href=?]', shepherd_path(shepherd), text: 'delete'
 			end
 		end

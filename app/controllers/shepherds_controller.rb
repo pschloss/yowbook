@@ -5,7 +5,7 @@ class ShepherdsController < ApplicationController
 	before_action :admin_shepherd,     only: :destroy
 
 	def index
-		@shepherds = Shepherd.where(activated: true).paginate(page: params[:page])
+		@shepherds = Shepherd.where("activated = :activated and id != :current_id", { activated: true, current_id: current_shepherd.id }).paginate(page: params[:page])
 	end
 
 
