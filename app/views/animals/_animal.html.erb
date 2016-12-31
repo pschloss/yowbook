@@ -1,14 +1,14 @@
 <li id="animal-<%= animal.eartag %>">
 	<%= link_to gravatar_for(animal.shepherd, size: 50), animal.shepherd %>
-	<span class="shepherd"><%= link_to animal.shepherd.name, animal.shepherd %></span>
-	<span class="eartag">
-		<%= animal.eartag %>
-		<%= image_tag animal.picture.url if animal.picture? %>
-	</span>
+	<!-- <span class="shepherd"><%= link_to animal.shepherd.name, animal.shepherd %></span> -->
+	<span class="eartag"><%= animal.eartag %></span>
+	<span class="eartag">Born <%= animal.birth_date %></span>
+	<%= image_tag animal.picture.url if animal.picture? %>
+
 	<span class="timestamp">
-		Born <%= animal.birth_date %>.
+		Last updated <%= time_ago_in_words(animal.updated_at) %> ago
 		<% if current_shepherd?(animal.shepherd) %>
-			<%= link_to "Delete", animal, method: :delete, data: { confirm: "Are you sure?" } %>
+			<%= link_to "Delete", animal, method: :delete, data: { confirm: "Are you sure you want to remove all history of this animal? Alternatively, you can indicate that this animal is sold/dead." } %>
 		<% end %>
 	</span>
 </li>
