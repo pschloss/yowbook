@@ -22,7 +22,12 @@ class Shepherd < ApplicationRecord
   validates :username, presence: true, length: { maximum: 50 },
 										uniqueness: { case_sensitive: false },
 										format: { with: VALID_USERNAME_REGEX,
-															message: "cannot contain spaces" }
+															message: "cannot contain spaces" },
+										exclusion: { in: %w(help about contact news signup login logout),
+ 																message: "%{value} is reserved." }
+
+
+
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 	validates :email, presence: true, length: { maximum: 250 },
  										format: { with: VALID_EMAIL_REGEX },

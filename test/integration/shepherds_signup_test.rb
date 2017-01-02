@@ -22,6 +22,23 @@ class ShepherdsSignupTest < ActionDispatch::IntegrationTest
 		assert_select 'div#error_explanation li', count: 5
 	end
 
+	test "invalid signup because a reserved username was selected" do
+		get signup_path
+		assert_no_difference 'Shepherd.count' do
+			post shepherds_path, params: { shepherd: {  name: "Foo Bar",
+																					username: "help",
+																					email: "foo@bar.com",
+																					password: "foobar",
+ 																					password_confirmation: "foobar"
+																				}
+																}
+		end
+		assert_template 'shepherds/new'
+		assert_select "div.field_with_errors"
+		assert_select 'div#error_explanation li', count: 1
+	end
+
+
 	test "valid signup information with account activation" do
 		get signup_path
 		assert_difference 'Shepherd.count', 1 do
