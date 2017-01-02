@@ -23,9 +23,9 @@ class ShepherdsLoginTest < ActionDispatch::IntegrationTest
 																					password: 'password' } }
 		assert is_logged_in?
 
-		assert_redirected_to @shepherd
+		assert_redirected_to root_path
 		follow_redirect!
-		assert_template 'shepherds/show'
+		assert_template 'static_pages/home'
 		assert_select "a[href=?]", login_path, count: 0
 		assert_select "a[href=?]", logout_path
 		assert_select "a[href=?]", shepherd_path(@shepherd)

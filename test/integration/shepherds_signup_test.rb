@@ -52,7 +52,7 @@ class ShepherdsSignupTest < ActionDispatch::IntegrationTest
 		get edit_account_activation_path(shepherd.activation_token, email: shepherd.email)
 		assert shepherd.reload.activated?
 		follow_redirect!
-		assert_template 'shepherds/show'
+		assert_template 'static_pages/home'
 		assert is_logged_in?
 	end
 

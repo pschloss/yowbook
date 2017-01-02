@@ -1,4 +1,6 @@
 <% if logged_in? %>
+	<% provide(:title, "#{current_shepherd.name} (@#{current_shepherd.username})") %>
+
 	<div class="row">
 		<aside class="col-md-4">
 			<section class="shepherd_info">
