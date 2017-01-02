@@ -6,7 +6,7 @@ class AccountActivationsController < ApplicationController
 			shepherd.activate
 			log_in shepherd
 			flash[:success] = "Account activated"
-			redirect_to root_url
+			redirect_to shepherd_path(shepherd)
 		else
 			flash[:danger] = "Invalid activation link"
 			redirect_to root_url

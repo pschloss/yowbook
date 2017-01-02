@@ -6,17 +6,17 @@ class AnimalsController < ApplicationController
 		@animal = current_shepherd.animals.build(animal_params)
 		if @animal.save
 			flash[:success] = "Sheep added!"
-			redirect_to root_url
+			redirect_to shepherd_path(current_shepherd)
 		else
 			flash[:danger] = "You must add an eartag number and a birth date"
-			redirect_to root_url
+			redirect_to shepherd_path(current_shepherd)
 		end
 	end
 
 	def destroy
 		@animal.destroy
 		flash[:success] = "Animal's records deleted"
-		redirect_to request.referrer || root_url
+		redirect_to request.referrer || shepherd_path(current_shepherd)
 	end
 
 
@@ -28,7 +28,7 @@ class AnimalsController < ApplicationController
 
 		def correct_shepherd
 			@animal = current_shepherd.animals.find_by(id: params[:id])
-			redirect_to root_url if @animal.nil?
+			redirect_to shepherd_path(current_shepherd) if @animal.nil?
 		end
 
 end

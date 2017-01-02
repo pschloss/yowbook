@@ -8,7 +8,8 @@ class AnimalsInterfaceTest < ActionDispatch::IntegrationTest
 
 	test "animal interface" do
 		log_in_as(@shepherd)
-		get root_path
+		follow_redirect!
+		# $stdout.print response.body
 		assert_select 'div.pagination'
 		assert_select 'input[type=file]'
 		#invalid submission
@@ -16,6 +17,7 @@ class AnimalsInterfaceTest < ActionDispatch::IntegrationTest
 			post animals_path, params: { animal: { eartag: "" } }
 		end
 		follow_redirect!
+
 		assert_match 'You must add an eartag number and a birth date', response.body
 
 		#valid submission
@@ -28,7 +30,7 @@ class AnimalsInterfaceTest < ActionDispatch::IntegrationTest
  																							picture: picture} }
 		end
 		assert assigns(:animal).picture?
-		assert_redirected_to root_url
+		assert_redirected_to shepherd_path(@shepherd)
 		follow_redirect!
 
 		#delete post
@@ -45,16 +47,16 @@ class AnimalsInterfaceTest < ActionDispatch::IntegrationTest
 
 	test "animal sidebar count" do
 		log_in_as(@shepherd)
-		get root_path
+		follow_redirect!
 		assert_match "#{@shepherd.animals.count} sheep", response.body
 
 		#Shepherd with zero animals
 		other_shepherd = shepherds(:malory)
 		log_in_as(other_shepherd)
-		get root_path
+		follow_redirect!
 		assert_match "0 sheep", response.body
 		other_shepherd.animals.create!(eartag: "12345", birth_date: "2016-04-01")
-		get root_path
+		get shepherd_path(other_shepherd)
 		assert_match "1 sheep", response.body
 	end
 

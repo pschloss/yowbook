@@ -26,6 +26,6 @@ class AnimalsControllerTest < ActionDispatch::IntegrationTest
 		assert_no_difference 'Animal.count' do
 			delete animal_path(animal)
 		end
-		assert_redirected_to root_url
+		assert_redirected_to shepherd_path(shepherds(:michael))
 	end
 end

@@ -1,10 +1,7 @@
 class StaticPagesController < ApplicationController
 
   def home
-		if logged_in?
-			@animals = current_shepherd.animals.paginate(page: params[:page])
-			@animal = current_shepherd.animals.build if logged_in?
-		end
+		redirect_to shepherd_path(current_shepherd) if logged_in?
   end
 
 	def help

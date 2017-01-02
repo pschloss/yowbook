@@ -1,0 +1,16 @@
+<% unless !current_shepherd?(@shepherd) %>
+	<%= form_for(@animal, html: { multipart: true }) do |f| %>
+		<%= render 'shared/error_messages', object: f.object %>
+		<div class="field">
+			<%= f.label :eartag %>
+			<%= f.text_field :eartag, class: 'form-control'  %>
+
+			<%= f.label :birth_date %>
+			<%= f.text_field :birth_date, placeholder: "YYYY-MM-DD", class: 'form-control'  %>
+		</div>
+		<%= f.submit "Add to flock", class: "btn btn-primary" %>
+		<span class="picture">
+			<%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+		</span>
+	<% end %>
+<% end %>

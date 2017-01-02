@@ -2,24 +2,24 @@
 <div class="row">
 	<aside class="col-md-4">
 		<section class="shepherd_info">
-			<h1>
-				<%= gravatar_for @shepherd %>
-				<%= @shepherd.name %>
-			</h1>
+			<%= render 'shepherd_info' %>
 		</section>
 		<section class="stats">
 			<%= render 'shared/stats' %>
 		</section>
+		<%= render 'animal_form' %>
 	</aside>
 
-	<div class="col-md-8">
+	<div class="col-md-5">
 		<%= render 'follow_form' %>
 		<% if @shepherd.animals.any? %>
-			<h3>Sheep (<%= @shepherd.animals.count %>)</h3>
 			<ol class="animals">
-				<%= render @animals %>
+				<%= render @shepherd.animals %>
 			</ol>
 			<%= will_paginate @animals %>
 		<% end %>
+	</div>
+	<div class="col-md-3">
+		<h3>Spacer</h3>
 	</div>
 </div>

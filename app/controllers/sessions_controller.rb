@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
 				log_in shepherd
 				params[:session][:remember_me] == '1' ? remember(shepherd) : forget(shepherd)
 				flash[:success] = "Welcome back to Yowbook!"
-				redirect_back_or root_url
+				redirect_back_or shepherd_path(shepherd)
 			else
 				message = "Account not activated. "
 				message += "Check your email for the activation link"

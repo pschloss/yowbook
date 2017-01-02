@@ -11,8 +11,7 @@ class ShepherdsProfileTest < ActionDispatch::IntegrationTest
 	test "shepherd's profile dislpay" do
     log_in_as(@shepherd)
 		get shepherd_path(@shepherd)
-		follow_redirect!
-		assert_template 'static_pages/home'
+		assert_template 'shepherds/show'
 		assert_select 'title', full_title("#{@shepherd.name} (@#{@shepherd.username})")
 		assert_select 'img.gravatar'
 		assert_select 'h1', text: @shepherd.name
@@ -28,12 +27,12 @@ class ShepherdsProfileTest < ActionDispatch::IntegrationTest
 	end
 
 
-  test "test profile stats on home page" do
+  test "test profile stats on current_shepherd's page" do
     log_in_as(@shepherd)
-		get shepherd_path(@shepherd)
+		# get shepherd_path(@shepherd)
+    get root_path(@shepherd)
 		follow_redirect!
-    # get root_path(@shepherd)
-    assert_template 'static_pages/home'
+    assert_template 'shepherds/show'
     assert_select 'div.stats', count: 1
     assert_match @shepherd.following.count.to_s, response.body
     assert_match @shepherd.followers.count.to_s, response.body
