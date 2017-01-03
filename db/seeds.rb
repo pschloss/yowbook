@@ -22,10 +22,16 @@ end
 
 # Animals
 shepherds = Shepherd.order(:created_at).take(6)
-50.times do
-	eartag = Faker::Number.number(4)
+for i in 1..50 do
+	eartag = 1600 + i
 	birth_date = Faker::Date.between(10.months.ago, 8.months.ago)
-	shepherds.each { |shepherd| shepherd.animals.create!(eartag: eartag, birth_date: birth_date, dam: shepherd.id+1000, sire: shepherd.id+2000) }
+	sex = [:wether, :wether, :wether, :ram, :ram, :ewe, :ewe, :ewe, :ewe, :teaser, :unknown].sample
+	shepherds.each { |shepherd| shepherd.animals.create!(
+													eartag: eartag,
+													birth_date: birth_date,
+													dam: shepherd.id+1000,
+													sire: shepherd.id+2000,
+													sex: sex) }
 end
 
 # Following relationships

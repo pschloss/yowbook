@@ -11,6 +11,9 @@ class Animal < ApplicationRecord
 						#message: "%{value} is the same as the animal." }
 	validates :sire, length: { maximum: 20 }#, exclusion: { in: %w(:eartag),
 						#message: "%{value} is the same as the animal." }
+	validates :sex, length: { maximum: 10 },
+									inclusion: { in: %w(ewe ram wether teaser unknown),
+															message: "%{value} is not an accepted value." }
 	validates_date :birth_date, presence: true, :on_or_before => lambda { Date.current }
 	validate :dam_sire_name
 	validate :picture_size
@@ -22,6 +25,7 @@ class Animal < ApplicationRecord
 		def set_defaults
 			self.sire ||= ""
 			self.dam ||= ""
+			self.sex ||= "unknown"
 		end
 
 		def picture_size
