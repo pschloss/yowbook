@@ -26,6 +26,19 @@ class AnimalsInterfaceTest < ActionDispatch::IntegrationTest
 		end
 		assert_select 'div#error_explanation>ul>li', 4
 
+		#invalid submission
+		assert_no_difference 'Animal.count' do
+			post animals_path, params: { animal: { eartag: "1234", birth_date: "12/12/2015", dam: "1234", sire: "1234" } }
+		end
+		assert_select 'div#error_explanation>ul>li', 4
+
+		#invalid submission
+		assert_no_difference 'Animal.count' do
+			post animals_path, params: { animal: { eartag: "1234", birth_date: "2015/12/12", dam: "1234", sire: "1234" } }
+		end
+		assert_select 'div#error_explanation>ul>li', 4
+
+
 		#valid submission
 		eartag = "123ABC"
 		birth_date = "2016-04-20"
