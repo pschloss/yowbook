@@ -3,12 +3,14 @@ class AnimalsController < ApplicationController
 	before_action :correct_shepherd, only: :destroy
 
 	def create
+		@shepherd = current_shepherd
 		@animal = current_shepherd.animals.build(animal_params)
+
 		if @animal.save
 			flash[:success] = "Sheep added!"
+			# render 'shepherds/show'
 			redirect_to shepherd_path(current_shepherd)
 		else
-			flash[:danger] = "You must add an eartag number and a birth date"
 			redirect_to shepherd_path(current_shepherd)
 		end
 	end
@@ -23,7 +25,7 @@ class AnimalsController < ApplicationController
 	private
 
 		def animal_params
-			params.require(:animal).permit(:eartag, :birth_date, :picture)
+			params.require(:animal).permit(:eartag, :birth_date, :picture, :dam, :sire)
 		end
 
 		def correct_shepherd

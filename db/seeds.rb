@@ -25,7 +25,7 @@ shepherds = Shepherd.order(:created_at).take(6)
 50.times do
 	eartag = Faker::Number.number(4)
 	birth_date = Faker::Date.between(10.months.ago, 8.months.ago)
-	shepherds.each { |shepherd| shepherd.animals.create!(eartag: eartag, birth_date: birth_date) }
+	shepherds.each { |shepherd| shepherd.animals.create!(eartag: eartag, birth_date: birth_date, dam: shepherd.id+1000, sire: shepherd.id+2000) }
 end
 
 # Following relationships

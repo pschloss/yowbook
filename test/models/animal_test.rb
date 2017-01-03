@@ -21,13 +21,40 @@ class AnimalTest < ActiveSupport::TestCase
 		assert_not @animal.valid?
 	end
 
-	test "content should be at most 20 characters" do
+	test "eartag should be at most 20 characters" do
 		@animal.eartag = "a" * 21
+		assert_not @animal.valid?
+	end
+
+	test "dam should be at most 20 characters" do
+		@animal.dam = "a" * 21
+		assert_not @animal.valid?
+	end
+
+	test "sire should be at most 20 characters" do
+		@animal.sire = "a" * 21
+		assert_not @animal.valid?
+	end
+
+	test "dam eartag should be different from lamb's eartag" do
+		@animal.dam = "12345G"
+		assert_not @animal.valid?
+	end
+
+	test "sire eartag should be different from lamb's eartag" do
+		@animal.sire = "12345G"
+		assert_not @animal.valid?
+	end
+
+	test "dam and sire should have different eartags" do
+		@animal.dam = "12345G"
+		@animal.sire = "12345G"
 		assert_not @animal.valid?
 	end
 
 	test "order should be most recent birth date first" do
 		assert_equal animals(:fourth), Animal.first
 	end
+
 
 end
