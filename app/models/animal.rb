@@ -17,7 +17,7 @@ class Animal < ApplicationRecord
 															message: "%{value} is not an accepted value." }
 	validates_date :birth_date, presence: true,
 															on_or_before: lambda { Date.current },
-															on_or_before_message: "must be today or earlier"#,
+															on_or_before_message: "must be today or earlier",
 															format: 'yyyy-mm-dd',
 															invalid_date_message: "must be in YYYY-MM-DD format"
 
