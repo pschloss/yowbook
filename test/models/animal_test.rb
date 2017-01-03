@@ -52,6 +52,16 @@ class AnimalTest < ActiveSupport::TestCase
 		assert_not @animal.valid?
 	end
 
+	test "should complain about an incorrect sex" do
+		@animal.sex = "dog"
+		assert_not @animal.valid?
+	end
+
+	test "should accept a correct sex" do
+		@animal.sex = "wether"
+		assert @animal.valid?
+	end
+
 	test "order should be most recent birth date first" do
 		assert_equal animals(:fourth), Animal.first
 	end

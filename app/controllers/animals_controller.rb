@@ -26,7 +26,7 @@ class AnimalsController < ApplicationController
 	private
 
 		def animal_params
-			params.require(:animal).permit(:eartag, :birth_date, :picture, :dam, :sire)
+			params.require(:animal).permit(:eartag, :birth_date, :picture, :dam, :sire, :sex)
 		end
 
 		def correct_shepherd
