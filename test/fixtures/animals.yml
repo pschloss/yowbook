@@ -1,46 +1,27 @@
-first:
-  eartag: "12345G"
-  birth_date: <%= Date.civil(10.months.ago.year, 10.months.ago.month, 10.months.ago.day) %>
-  shepherd: michael
-
-second:
-  eartag: "12345F"
-  birth_date: <%= Date.civil(10.months.ago.year, 10.months.ago.month, 10.months.ago.day) %>
-  shepherd: michael
-
-fifth:
-  eartag: "0"
-  birth_date: <%= Date.civil(10.months.ago.year, 10.months.ago.month, 10.months.ago.day) %>
-  shepherd: michael
-
-third:
-  eartag: "22335A"
-  birth_date: <%= Date.civil(11.months.ago.year, 11.months.ago.month, 11.months.ago.day) %>
-  shepherd: michael
-
-fourth:
-  eartag: "88345P"
-  birth_date: <%= Date.civil(5.months.ago.year, 5.months.ago.month, 5.months.ago.day) %>
-  shepherd: michael
-
-<% 30.times do |n| %>
+<% 50.times do |n| %>
 sheep_<%= n %>:
-  eartag: Faker::Number.number(4)
-  birth_date: Faker::Date.between(10.months.ago, 8.months.ago)
+  eartag: <%= 1600 + n %>
+  birth_date: <% if(n!=4) %><%= Date.civil(10.months.ago.year, 10.months.ago.month, 10.months.ago.day) %><% else %>"2017-01-03"<% end %>
   shepherd: michael
+  dam: 1701
+  sire: 1702
+  sex: 	<%= [:wether, :wether, :wether, :ram, :ram, :ewe, :ewe, :ewe, :ewe, :teaser, :unknown].sample %>
 <% end %>
 
-
-<% 30.times do |n| %>
+<% 50.times do |n| %>
 archer_sheep_<%= n %>:
-  eartag: Faker::Number.number(4)
+  eartag: <%= 1600 + n %>
   birth_date: Faker::Date.between(10.months.ago, 8.months.ago)
   shepherd: archer
+  dam: 1703
+  sex: 	<%= [:wether, :wether, :wether, :ram, :ram, :ewe, :ewe, :ewe, :ewe, :teaser, :unknown].sample %>
 <% end %>
 
-<% 30.times do |n| %>
+<% 50.times do |n| %>
 lana_sheep_<%= n %>:
-  eartag: Faker::Number.number(4)
+  eartag: <%= 1600 + n %>
   birth_date: Faker::Date.between(10.months.ago, 8.months.ago)
   shepherd: lana
+  dam: 1705
+  sex: 	<%= [:wether, :wether, :wether, :ram, :ram, :ewe, :ewe, :ewe, :ewe, :teaser, :unknown].sample %>
 <% end %>

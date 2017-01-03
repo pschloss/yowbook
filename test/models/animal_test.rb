@@ -21,6 +21,17 @@ class AnimalTest < ActiveSupport::TestCase
 		assert_not @animal.valid?
 	end
 
+	test "duplicate eartags should be flagged" do
+		@animal.eartag = "1601"
+		assert_not @animal.valid?
+	end
+
+	test "unique eartag should be validated" do
+		@animal.eartag = "2001"
+		assert @animal.valid?
+	end
+
+
 	test "eartag should be at most 20 characters" do
 		@animal.eartag = "a" * 21
 		assert_not @animal.valid?
@@ -63,7 +74,7 @@ class AnimalTest < ActiveSupport::TestCase
 	end
 
 	test "order should be most recent birth date first" do
-		assert_equal animals(:fourth), Animal.first
+		assert_equal animals(:sheep_4), Animal.first
 	end
 
 

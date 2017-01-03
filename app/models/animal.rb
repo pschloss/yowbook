@@ -6,11 +6,12 @@ class Animal < ApplicationRecord
 	default_scope -> { order(birth_date: :desc, eartag: :asc) }
 	mount_uploader :picture, PictureUploader
 	validates :shepherd_id, presence: true
-	validates :eartag, presence: true, length: { maximum: 20 }
-	validates :dam, length: { maximum: 20 }#, exclusion: { in: %w(:eartag),
-						#message: "%{value} is the same as the animal." }
-	validates :sire, length: { maximum: 20 }#, exclusion: { in: %w(:eartag),
-						#message: "%{value} is the same as the animal." }
+	validates :eartag, presence: true,
+											length: { maximum: 20 },
+											uniqueness: { scope: :shepherd_id,
+																		message: "That eartag is already taken" }
+	validates :dam, length: { maximum: 20 }
+	validates :sire, length: { maximum: 20 }
 	validates :sex, length: { maximum: 10 },
 									inclusion: { in: %w(ewe ram wether teaser unknown),
 															message: "%{value} is not an accepted value." }

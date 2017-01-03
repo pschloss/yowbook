@@ -40,7 +40,7 @@ class AnimalsInterfaceTest < ActionDispatch::IntegrationTest
 		follow_redirect!
 
 		#valid submission 2
-		eartag = "123ABC"
+		eartag = "123ABD"
 		birth_date = "2016-04-20"
 		dam = "1"
 		sire = "2"
@@ -50,7 +50,8 @@ class AnimalsInterfaceTest < ActionDispatch::IntegrationTest
 																							birth_date: birth_date,
  																							picture: picture,
 																							dam: dam,
-																							sire: sire} }
+																							sire: sire,
+																							sex: "ewe"} }
 		end
 		assert assigns(:animal).picture?
 		assert_redirected_to shepherd_path(@shepherd)

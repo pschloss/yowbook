@@ -3,7 +3,7 @@ require 'test_helper'
 class AnimalsControllerTest < ActionDispatch::IntegrationTest
 
 	def setup
-		@animal = animals(:first)
+		@animal = animals(:sheep_1)
 	end
 
 	test "should redirect create when not logged in" do
