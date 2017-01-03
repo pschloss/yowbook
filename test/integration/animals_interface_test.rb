@@ -12,13 +12,19 @@ class AnimalsInterfaceTest < ActionDispatch::IntegrationTest
 		# $stdout.print response.body
 		assert_select 'div.pagination'
 		assert_select 'input[type=file]'
+
 		#invalid submission
 		assert_no_difference 'Animal.count' do
 			post animals_path, params: { animal: { eartag: "" } }
 		end
-		follow_redirect!
 
-		assert_match 'You must add an eartag number and a birth date', response.body
+		assert_select 'div#error_explanation>ul>li', 2
+
+		#invalid submission
+		assert_no_difference 'Animal.count' do
+			post animals_path, params: { animal: { eartag: "1234", birth_date: "2090-12-12", dam: "1234", sire: "1234" } }
+		end
+		assert_select 'div#error_explanation>ul>li', 4
 
 		#valid submission
 		eartag = "123ABC"
@@ -32,6 +38,25 @@ class AnimalsInterfaceTest < ActionDispatch::IntegrationTest
 		assert assigns(:animal).picture?
 		assert_redirected_to shepherd_path(@shepherd)
 		follow_redirect!
+
+		#valid submission 2
+		eartag = "123ABC"
+		birth_date = "2016-04-20"
+		dam = "1"
+		sire = "2"
+		picture = fixture_file_upload('images/rails.png', 'image/png')
+		assert_difference 'Animal.count', 1 do
+			post animals_path, params: { animal: {  eartag: eartag,
+																							birth_date: birth_date,
+ 																							picture: picture,
+																							dam: dam,
+																							sire: sire} }
+		end
+		assert assigns(:animal).picture?
+		assert_redirected_to shepherd_path(@shepherd)
+		follow_redirect!
+
+
 
 		#delete post
 		assert_select 'a', text: 'Delete'

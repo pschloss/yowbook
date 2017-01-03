@@ -2,19 +2,19 @@
 <div class="row">
 	<aside class="col-md-4">
 		<section class="shepherd_info">
-			<%= render 'shepherd_info' %>
+			<%= render 'shepherds/shepherd_info' %>
 		</section>
 		<section class="stats">
 			<%= render 'shared/stats' %>
 		</section>
-		<%= render 'animal_form' %>
+		<%= render 'shepherds/animal_form' %>
 	</aside>
 
 	<div class="col-md-5">
-		<%= render 'follow_form' %>
+		<%= render 'shepherds/follow_form' %>
 		<% if @shepherd.animals.any? %>
 			<ol class="animals">
-				<%= render @shepherd.animals %>
+				<%= render @animals %>
 			</ol>
 			<%= will_paginate @animals %>
 		<% end %>

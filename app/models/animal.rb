@@ -31,13 +31,13 @@ class Animal < ApplicationRecord
 		end
 
 		def dam_sire_name
-			errors.add(:dam, "should not have the same eartag as the lamb") unless
-				dam != eartag
+			errors.add(:dam, "should not have the same eartag as lamb") if
+				dam == eartag && dam != ""
 
-			errors.add(:sire, "should not have the same eartag as the lamb") unless
-				sire != eartag
+			errors.add(:sire, "should not have the same eartag as lamb") if
+				sire == eartag && sire != ""
 
-			errors.add(:base, "The dam and sire should not have the same eartag") if
+			errors.add(:base, "Dam and sire should not have the same eartag") if
 				sire == dam && sire != ""
 		end
 

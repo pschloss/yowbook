@@ -150,6 +150,30 @@ aside {
 		height: 100px;
 		margin-bottom: 5px;
 	}
+
+	form {
+		#error_explanation {
+			font-size: 12px;
+
+			.alert {
+				margin: 20px 0 5px 0;
+				padding: 5px 10px 5px 10px;
+			}
+
+			ul {
+		    list-style: disc outside none;
+		    padding-left: 1px;
+
+				li {
+			    padding-left: 1px;
+		    margin-left: 15px;
+				}
+
+			}
+		}
+		margin-top: 10px;
+
+	}
 }
 
 span.picture {

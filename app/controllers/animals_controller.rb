@@ -11,7 +11,8 @@ class AnimalsController < ApplicationController
 			# render 'shepherds/show'
 			redirect_to shepherd_path(current_shepherd)
 		else
-			redirect_to shepherd_path(current_shepherd)
+			@animals = @shepherd.animals.paginate(page: params[:page])
+			render 'shepherds/show'
 		end
 	end
 
