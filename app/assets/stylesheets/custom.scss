@@ -173,6 +173,10 @@ aside {
 		}
 		margin-top: 10px;
 
+		input[type=file] {
+		    border: none;
+		}
+
 	}
 }
 
@@ -299,27 +303,47 @@ input {
 		padding: 10px 0;
 		border-bottom: 1px solid #e8e8e8;
 	}
-	.shepherd {
-		margin-top: 5em;
-		padding-top: 0;
+
+	img {
+		float: left;
+    display:inline-block;
+		margin-right: 10px;
+		margin-top: 5px;
+	}
+
+	.tag_img {
+    background-image: image-url('thumb_eartag.png');
+		float: left;
+		margin-right: 10px;
+		margin-top: 5px;
+		width: 125px;
+		height: 125px;
+		font-size: 35px;
+		font-weight: 900;
+		position: relative;
+		// display: table-cell;
+		// vertical-align: center;
+		.text {
+	    position: absolute;
+	    width: 100%;
+			bottom: 0;
+			text-align: center;
+		}
+	}
+
+	.description {
+    display:inline-block;
+		margin: 0;
+		// float: right
 	}
 	.eartag {
 		display: block;
-		margin-left: 60px;
-		img {
-			display: block;
-			padding: 5px 0;
-		}
+		margin-left: 0px;
 	}
 	.timestamp {
 		color: $gray-light;
 		display: block;
-		margin-left: 60px;
-	}
-	.gravatar {
-		float: left;
-		margin-right: 10px;
-		margin-top: 5px;
+		margin-left: 0px;
 	}
 }
 
@@ -333,4 +357,10 @@ input {
 	width: 100%;
 	margin-top: 45px;
 	@include box_sizing;
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
 }

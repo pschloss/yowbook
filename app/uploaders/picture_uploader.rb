@@ -3,7 +3,14 @@ class PictureUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
-	process resize_to_limit: [400,400]
+	process resize_to_fill: [400,400]
+  process convert: 'png'
+
+  # Create different versions of your uploaded files:
+  version :thumb do
+    process resize_to_fill: [125, 125]
+  end
+
 
   # Choose what kind of storage to use for this uploader:
 	if Rails.env.prodution?
@@ -15,7 +22,7 @@ class PictureUploader < CarrierWave::Uploader::Base
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/"
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
@@ -33,11 +40,6 @@ class PictureUploader < CarrierWave::Uploader::Base
   #   # do something
   # end
 
-  # Create different versions of your uploaded files:
-  # version :thumb do
-  #   process resize_to_fit: [50, 50]
-  # end
-
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_whitelist
@@ -46,8 +48,8 @@ class PictureUploader < CarrierWave::Uploader::Base
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  # def filename
-  #   "something.jpg" if original_filename
-  # end
+  def filename
+    "#{model.shepherd.username}_#{model.eartag}.png"
+  end
 
 end

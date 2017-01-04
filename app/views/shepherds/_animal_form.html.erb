@@ -17,10 +17,9 @@
 			<%= f.label :sire %>
 			<%= f.text_field :sire, class: 'form-control'  %>
 
+			<%= f.label :picture %>
+			<%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
 		</div>
 		<%= f.submit "Add to flock", class: "btn btn-primary" %>
-		<span class="picture">
-			<%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
-		</span>
 	<% end %>
 <% end %>

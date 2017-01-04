@@ -21,9 +21,6 @@ class Animal < ApplicationRecord
 															format: 'yyyy-mm-dd',
 															invalid_date_message: "must be in YYYY-MM-DD format"
 
-															# format: { with: /\A[a-zA-Z]+\z/,
-													    # message: "only allows letters" }
-
 
 	validate :dam_sire_name
 	validate :picture_size
