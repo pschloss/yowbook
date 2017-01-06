@@ -77,5 +77,12 @@ class AnimalTest < ActiveSupport::TestCase
 		assert_equal animals(:sheep_4), Animal.first
 	end
 
-
+	test "next eartag should be one more than previous eartag" do
+		@animal = @shepherd.animals.build(eartag: "12345", birth_date: Date.current)
+		@animal.save
+		assert_equal "12346", @shepherd.animals.build.eartag
+		@animal = @shepherd.animals.build(eartag: "12344", birth_date: Date.current)
+		@animal.save
+		assert_equal "12346", @shepherd.animals.build.eartag
+	end
 end

@@ -3,7 +3,7 @@ class Animal < ApplicationRecord
   # The set_defaults will only work if the object is new
 
   belongs_to :shepherd
-	default_scope -> { order(birth_date: :desc, eartag: :asc) }
+	default_scope -> { order(birth_date: :desc, eartag: :desc) }
 	mount_uploader :picture, PictureUploader
 	validates :shepherd_id, presence: true
 	validates :eartag, presence: true,
@@ -21,7 +21,6 @@ class Animal < ApplicationRecord
 															format: 'yyyy-mm-dd',
 															invalid_date_message: "must be in YYYY-MM-DD format"
 
-
 	validate :dam_sire_name
 	validate :picture_size
 	before_save :refresh_shepherd
@@ -33,6 +32,11 @@ class Animal < ApplicationRecord
 			self.sire ||= ""
 			self.dam ||= ""
 			self.sex ||= "unknown"
+			next_eartag = Animal.first.eartag.to_i + 1
+			while(!Animal.find_by(eartag: next_eartag).nil?) do
+				next_eartag = next_eartag + 1
+			end
+			self.eartag ||= next_eartag
 		end
 
 		def picture_size
