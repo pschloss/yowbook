@@ -22,6 +22,24 @@ class AnimalsController < ApplicationController
 		redirect_to request.referrer || shepherd_path(current_shepherd)
 	end
 
+	def show
+		@animal = Animal.find_by(eartag: params[:eartag])
+	end
+
+	def edit
+		@animal = Animal.find_by(eartag: params[:eartag])
+		@shepherd = @animal.shepherd
+	end
+
+	def update
+		@animal = Animal.find(params[:id])
+		if @animal.update_attributes(micropost_params)
+			flash[:success] = "Post updated"
+			redirect_to user_micropost_path(username: params[:id])
+		else
+			render 'edit'
+		end
+	end
 
 	private
 

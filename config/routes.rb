@@ -24,7 +24,10 @@ Rails.application.routes.draw do
 	resources :shepherds
 	resources :account_activations, only: [:edit]
 	resources :password_resets,     only: [:new, :create, :edit, :update]
-	resources :animals,             only: [:create, :destroy]
+	resources :animals,             only: [:create, :destroy, :update]
 	resources :relationships,       only: [:create, :destroy]
+
+  get '/shepherds/:username/:eartag', to: 'animals#show', as: :shepherd_animal
+  get '/shepherds/:username/:eartag/edit', to: 'animals#edit', as: :shepherd_animal_edit
 
 end
