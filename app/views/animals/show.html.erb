@@ -1,3 +1,27 @@
-<h1><%= @animal.eartag %></h1>
+<% provide(:title, "#{@shepherd.name}'s #{@animal.eartag}") %>
+
+<h1>Show: <%= @animal.eartag %></h1>
 <h2><%= @animal.shepherd.name %></h2>
+
+<% if @animal.picture? %>
+	<%= image_tag @animal.picture.thumb.url %>
+<% else %>
+	<div class="tag_img"><div class="text"><%= @animal.eartag %></div></div>
+<% end %>
+
+<div class="description">
+	<span class="eartag">Born: <%= @animal.birth_date %></span>
+	<span class="eartag">Dam: <%= @animal.dam %></span>
+	<span class="eartag">Sire: <%= @animal.sire %></span>
+	<span class="eartag">Sex: <%= @animal.sex.capitalize %></span>
+	<span class="eartag">Last weight: NA</span>
+
+	<span class="timestamp">
+		Updated <%= time_ago_in_words(@animal.updated_at) %> ago
+		<% if current_shepherd?(@animal.shepherd) %>
+			| <%= link_to "Delete", @animal, method: :delete, data: { confirm: "Are you sure you want to remove all history of this animal? Alternatively, you can indicate that this animal is sold/dead." } %>
+		<% end %>
+	</span>
+</div>
+
 <div class="timestamp"><%= @animal.updated_at %></div>

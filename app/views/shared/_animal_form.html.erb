@@ -20,6 +20,7 @@
 			<%= f.label :picture %>
 			<%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
 		</div>
-		<%= f.submit "Add to flock", class: "btn btn-primary" %>
+		<%= f.submit yield(:button_text), class: "btn btn-primary" %>
+
 	<% end %>
 <% end %>

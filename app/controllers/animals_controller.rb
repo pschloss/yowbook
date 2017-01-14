@@ -1,6 +1,6 @@
 class AnimalsController < ApplicationController
-	before_action :logged_in_shepherd, only: [:create, :destroy]
-	before_action :correct_shepherd, only: :destroy
+	before_action :logged_in_shepherd, only: [:create, :destroy, :show]
+	before_action :correct_shepherd, only: [:edit, :destroy]
 
 	def create
 		@shepherd = current_shepherd
@@ -23,19 +23,22 @@ class AnimalsController < ApplicationController
 	end
 
 	def show
-		@animal = Animal.find_by(eartag: params[:eartag])
+		@shepherd = Shepherd.find_by(username: params[:username])
+		@animal = @shepherd.animals.find_by(eartag: params[:eartag])
+		render 'edit' if @shepherd == current_shepherd
 	end
 
 	def edit
 		@animal = Animal.find_by(eartag: params[:eartag])
 		@shepherd = @animal.shepherd
+	# @animal = current_shepherd.animals.build if logged_in?
 	end
 
 	def update
 		@animal = Animal.find(params[:id])
-		if @animal.update_attributes(micropost_params)
+		if @animal.update_attributes(animal_params)
 			flash[:success] = "Post updated"
-			redirect_to user_micropost_path(username: params[:id])
+			redirect_to user_animal_path(username: params[:id])
 		else
 			render 'edit'
 		end

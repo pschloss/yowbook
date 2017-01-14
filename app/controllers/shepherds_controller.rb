@@ -14,7 +14,7 @@ class ShepherdsController < ApplicationController
 		redirect_to root_url and return unless @shepherd.activated
 		@animal = current_shepherd.animals.build if logged_in?
 		@animals = @shepherd.animals.paginate(page: params[:page])
-end
+	end
 
   def new
 		@shepherd = Shepherd.new

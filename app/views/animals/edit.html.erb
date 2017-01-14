@@ -1,1 +1,7 @@
+<% provide(:title, "#{@shepherd.name}'s #{@animal.eartag}") %>
+<% provide(:button_text, 'Update record') %>
+
+<h1><%= @animal.eartag %></h1>
+<h2><%= @animal.shepherd.name %></h2>
+
 <%= render 'shared/animal_form' %>

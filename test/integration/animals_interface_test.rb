@@ -99,4 +99,20 @@ class AnimalsInterfaceTest < ActionDispatch::IntegrationTest
 		assert_match "1 sheep", response.body
 	end
 
+
+	test "animal links" do
+		log_in_as(@shepherd)
+		follow_redirect!
+
+		first_animal = @shepherd.animals.first
+		get shepherd_animal_path(username: @shepherd.username, eartag: first_animal.eartag)
+		assert_template 'animals/edit'
+
+		@other_shepherd = shepherds(:archer)
+		get shepherd_path(@other_shepherd)
+		other_animal = @other_shepherd.animals.first
+		get shepherd_animal_path(username: @other_shepherd.username, eartag: other_animal.eartag)
+		assert_template 'animals/show'
+
+	end
 end
