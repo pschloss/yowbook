@@ -2,18 +2,18 @@
 <% provide(:button_text, "Add to flock") %>
 
 <div class="row">
-	<aside class="col-md-4">
+	<aside class="col-md-3">
 		<section class="shepherd_info">
-			<%= render 'shepherds/shepherd_info' %>
+			<%= render 'shared/shepherd_info' %>
 		</section>
+		<%= render 'shepherds/follow_form' %>
 		<section class="stats">
 			<%= render 'shared/stats' %>
 		</section>
 		<%= render 'shared/animal_form' %>
 	</aside>
 
-	<div class="col-md-5">
-		<%= render 'shepherds/follow_form' %>
+	<div class="col-md-6">
 		<% if @shepherd.animals.any? %>
 			<ol class="animals">
 				<%= render @animals %>
@@ -21,6 +21,7 @@
 			<%= will_paginate @animals %>
 		<% end %>
 	</div>
+
 	<div class="col-md-3">
 		<h3>Spacer</h3>
 	</div>

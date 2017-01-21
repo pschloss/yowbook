@@ -1,9 +1,9 @@
 <% unless current_shepherd?(@shepherd) %>
 	<div id="follow_form">
 		<% if current_shepherd.following?(@shepherd) %>
-			<%= render 'unfollow' %>
+			<%= render 'shepherds/unfollow' %>
 		<% else %>
-			<%= render 'follow' %>
+			<%= render 'shepherds/follow' %>
 		<% end %>
 	</div>
 <% end %>

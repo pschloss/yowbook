@@ -1,27 +1,64 @@
 <% provide(:title, "#{@shepherd.name}'s #{@animal.eartag}") %>
+<% provide(:button_text, "Update record") %>
 
-<h1>Show: <%= @animal.eartag %></h1>
-<h2><%= @animal.shepherd.name %></h2>
+<div class="row">
+	<aside class="col-md-3">
+		<section class="shepherd_info">
+			<%= render 'shared/shepherd_info' %>
+		</section>
+		<%= render 'shepherds/follow_form' %>
+		<section class="stats">
+			<%= render 'shared/stats' %>
+		</section>
+	</aside>
+	<div class="col-md-9">
+		<div class="animal">
+			<div class="animal_header">
+				<div class="basic_animal_info">
+					<%= render 'shared/basic_info', animal: @animal %>
+				</div>
+			</div>
 
-<% if @animal.picture? %>
-	<%= image_tag @animal.picture.thumb.url %>
-<% else %>
-	<div class="tag_img"><div class="text"><%= @animal.eartag %></div></div>
-<% end %>
+			<div class="ui-tabs" id="tabs">
+		  <ul class="ui-tabs-nav">
+		    <li><a href="#weights">Weights</a></li>
+		    <li><a href="#pedigree">Pedigree</a></li>
+		    <li><a href="#field_notes">Field Notes</a></li>
+		    <li><a href="#miscellaneous">Miscellaneous</a></li>
+				<% if current_shepherd?(@shepherd) %>
+			    <li><a href="#edit">Edit</a></li>
+				<% end %>
+		  </ul>
+		  <div class="ui-tabs-panel" id="weights">
+		    <p>Weights.</p>
+		  </div>
+		  <div class="ui-tabs-panel" id="pedigree">
+		    <p>Pedigree.</p>
+		  </div>
+		  <div class="ui-tabs-panel" id="field_notes">
+		    <p>Field notes.</p>
+		  </div>
+		  <div class="ui-tabs-panel" id="miscellaneous">
+		    <p>Miscellaneous.</p>
+		  </div>
+			<% if current_shepherd?(@shepherd) %>
+			  <div class="ui-tabs-panel" id="edit">
+			    <%= render 'edit_data' %>
+					<%= link_to "Delete animal", @animal, method: :delete, data: { confirm: "Are you sure you want to remove all history of this animal? Alternatively, you can indicate that this animal is sold/dead." }, class: "btn btn-primary delete" %>
+			  </div>
+			<% end %>
 
-<div class="description">
-	<span class="eartag">Born: <%= @animal.birth_date %></span>
-	<span class="eartag">Dam: <%= @animal.dam %></span>
-	<span class="eartag">Sire: <%= @animal.sire %></span>
-	<span class="eartag">Sex: <%= @animal.sex.capitalize %></span>
-	<span class="eartag">Last weight: NA</span>
-
-	<span class="timestamp">
-		Updated <%= time_ago_in_words(@animal.updated_at) %> ago
-		<% if current_shepherd?(@animal.shepherd) %>
-			| <%= link_to "Delete", @animal, method: :delete, data: { confirm: "Are you sure you want to remove all history of this animal? Alternatively, you can indicate that this animal is sold/dead." } %>
-		<% end %>
-	</span>
+		</div>
+			<div class="update-page">
+				Last updated <%= time_ago_in_words(@animal.updated_at) %> ago
+			</div>
+		</div>
+	</div>
 </div>
 
-<div class="timestamp"><%= @animal.updated_at %></div>
+
+  <script>
+  $( function() {
+    $( "#tabs" ).tabs();
+  } );
+  </script>

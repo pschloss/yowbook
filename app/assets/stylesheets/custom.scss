@@ -197,6 +197,14 @@ span.picture {
 	margin-top: 15px;
 }
 
+#follow_form {
+	.btn {
+		width: 50%;
+		margin-bottom: 10px;
+	}
+}
+
+
 .stats {
 	overflow: auto;
 	margin-top: 0;
@@ -295,24 +303,77 @@ input {
 
 /* Animals index */
 
-.animals {
+ol.animals {
 	list-style: none;
-	padding: 0;
+	padding: 20px 0;
+	margin: 0;
 
 	li {
-		padding: 10px 0;
+		margin: 0;
+		padding: 20px 10px;
 		border-bottom: 1px solid #e8e8e8;
 
 		&:hover {
 			background-color: $gray-medium-light;
 		}
+
 		a {
 			color: black;
 			text-decoration: none;
 		}
 	}
 
+}
+
+/* Animal show/edit */
+
+.animal {
+
+	.animal_header {
+		padding: 20px 0;
+
+	}
+
+	.ui-tabs {
+
+		.ui-tabs-nav {
+			border-bottom-style: solid;
+			border-bottom-color: $gray-medium-light;
+			border-bottom-width: 1px;
+			background-color: #FFF;
+		}
+		.ui-state-active {
+			background-color: red;
+			border-color: red;
+		}
+	}
+
+	a {
+		color: white;
+		outline-color: red;
+	}
+
+	.btn.btn-primary.delete {
+		margin-top: 10px;
+		color: white;
+		background-color: #F00;
+		border-color: #F00;
+		width: 100%;
+
+		&:hover {
+		background-color: #A00;
+		border-color: #A00;
+		}
+	}
+}
+
+
+.basic_animal_info {
+	margin: 0 0;
+
 	img {
+		width: 150px;
+		text-align: center;
 		float: left;
     display:inline-block;
 		margin-right: 10px;
@@ -320,41 +381,50 @@ input {
 	}
 
 	.tag_img {
-    background-image: image-url('thumb_eartag.png');
-		float: left;
-		margin-right: 10px;
-		margin-top: 5px;
-		width: 125px;
-		height: 125px;
-		font-size: 35px;
+    background: image-url('eartag.png');
+  	background-repeat: no-repeat;
+		background-position: 50% 50%;
+		background-size: 150px 150px;
+
+	  display: flex;
+	  justify-content: center;
+	  align-items: flex-end;
+
+		height: 150px;
+		margin: auto 0;
+		bottom: 0px;
+		text-align: center;
+		font-size: 40px;
 		font-weight: 900;
-		position: relative;
-		// display: table-cell;
-		// vertical-align: center;
-		.text {
-	    position: absolute;
-	    width: 100%;
-			bottom: 0;
-			text-align: center;
+	}
+
+	ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		width: auto;
+
+		li {
+			padding: 0;
+			margin: 0;
+			border-bottom: none;
+
+			font-size: 1.2em;
+			line-height: 1.5em;
+
+			#label {
+				font-weight: 800;
+			}
 		}
 	}
 
-	.description {
-    display:inline-block;
+	.update-list {
 		margin: 0;
-		// float: right
+		text-align: right;
+		font-style: italic;
 	}
-	.eartag {
-		display: block;
-		margin-left: 0px;
-	}
-	.timestamp {
-		color: $gray-light;
-		display: block;
-		margin-left: 0px;
-	}
-}
 
+}
 
 
 /* miscellaneous */
@@ -371,4 +441,10 @@ input {
   content: "";
   display: table;
   clear: both;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
 }

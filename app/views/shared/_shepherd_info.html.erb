@@ -1,4 +1,4 @@
 <%= link_to gravatar_for(@shepherd, size: 50), @shepherd %>
-<h1><%= @shepherd.name %></h1>
+<h1><%= link_to @shepherd.name, @shepherd  %></h1>
 <span><%= pluralize(@shepherd.animals.count, "sheep") %></span>
-<span>Last updated <%= time_ago_in_words(@shepherd.updated_at) %> ago</span>
+<span>Updated <%= time_ago_in_words(@shepherd.updated_at) %> ago</span>

@@ -1,6 +1,6 @@
 class AnimalsController < ApplicationController
 	before_action :logged_in_shepherd, only: [:create, :destroy, :show]
-	before_action :correct_shepherd, only: [:edit, :destroy]
+	before_action :correct_shepherd, only: [:destroy] #,:edit]
 
 	def create
 		@shepherd = current_shepherd
@@ -8,7 +8,6 @@ class AnimalsController < ApplicationController
 
 		if @animal.save
 			flash[:success] = "Sheep added!"
-			# render 'shepherds/show'
 			redirect_to shepherd_path(current_shepherd)
 		else
 			@animals = @shepherd.animals.paginate(page: params[:page])
@@ -19,26 +18,19 @@ class AnimalsController < ApplicationController
 	def destroy
 		@animal.destroy
 		flash[:success] = "Animal's records deleted"
-		redirect_to request.referrer || shepherd_path(current_shepherd)
+		redirect_to shepherd_path(current_shepherd)
 	end
 
 	def show
 		@shepherd = Shepherd.find_by(username: params[:username])
 		@animal = @shepherd.animals.find_by(eartag: params[:eartag])
-		render 'edit' if @shepherd == current_shepherd
-	end
-
-	def edit
-		@animal = Animal.find_by(eartag: params[:eartag])
-		@shepherd = @animal.shepherd
-	# @animal = current_shepherd.animals.build if logged_in?
 	end
 
 	def update
 		@animal = Animal.find(params[:id])
 		if @animal.update_attributes(animal_params)
-			flash[:success] = "Post updated"
-			redirect_to user_animal_path(username: params[:id])
+			flash[:success] = "Animal updated"
+			redirect_to shepherd_animal_path(username: current_shepherd[:username], eartag: animal_params[:eartag])
 		else
 			render 'edit'
 		end

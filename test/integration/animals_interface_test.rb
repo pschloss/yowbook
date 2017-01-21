@@ -70,18 +70,18 @@ class AnimalsInterfaceTest < ActionDispatch::IntegrationTest
 		assert_redirected_to shepherd_path(@shepherd)
 		follow_redirect!
 
-
-
 		#delete post
-		assert_select 'a', text: 'Delete'
 		first_animal = @shepherd.animals.paginate(page: 1).first
+		get shepherd_animal_path(username: @shepherd.username, eartag: first_animal.eartag)
+		assert_select 'div#weights', count: 1
+		assert_select 'div#edit', count: 1
+		assert_select 'a', text: 'Delete animal', count: 1
+
 		assert_difference 'Animal.count', -1 do
 			delete animal_path(first_animal)
 		end
+		assert_redirected_to shepherd_path(@shepherd)
 
-		#visit different user
-		get shepherd_path(shepherds(:archer))
-		assert_select 'a', text: 'delete', count: 0
 	end
 
 	test "animal sidebar count" do
@@ -106,13 +106,18 @@ class AnimalsInterfaceTest < ActionDispatch::IntegrationTest
 
 		first_animal = @shepherd.animals.first
 		get shepherd_animal_path(username: @shepherd.username, eartag: first_animal.eartag)
-		assert_template 'animals/edit'
+		assert_template 'animals/show'
+		assert_select 'div#edit', count: 1
+		assert_select 'a', text: 'Delete animal', count: 1
+
 
 		@other_shepherd = shepherds(:archer)
 		get shepherd_path(@other_shepherd)
 		other_animal = @other_shepherd.animals.first
 		get shepherd_animal_path(username: @other_shepherd.username, eartag: other_animal.eartag)
 		assert_template 'animals/show'
+		assert_select 'div#edit', count: 0
+		assert_select 'a', text: 'Delete animal', count: 0
 
 	end
 end

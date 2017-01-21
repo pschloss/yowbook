@@ -1,0 +1,26 @@
+<% unless !current_shepherd?(@shepherd) %>
+	<%= form_for(@animal, html: { multipart: true }) do |f| %>
+		<%= render 'shared/error_messages', object: f.object %>
+		<div class="field">
+			<%= f.label :eartag %>
+			<%= f.text_field :eartag, class: 'form-control', value: @animal.eartag  %>
+
+			<%= f.label :birth_date %>
+			<%= f.text_field :birth_date, class: 'form-control', value: @animal.birth_date  %>
+
+			<%= f.label :sex %>
+			<%= f.select(:sex, options_for_select([['Unknown', 'unknown'], ['Ewe', 'ewe'], ['Wether','wether'], ['Ram', 'ram'], ['Teaser', 'teaser']], @animal.sex)) %>
+
+			<%= f.label :dam %>
+			<%= f.text_field :dam, class: 'form-control'  %>
+
+			<%= f.label :sire %>
+			<%= f.text_field :sire, class: 'form-control'  %>
+
+			<%= f.label :picture %>
+			<%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+		</div>
+		<%= f.submit yield(:button_text), class: "btn btn-primary" %>
+
+	<% end %>
+<% end %>

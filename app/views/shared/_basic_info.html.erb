@@ -1,0 +1,27 @@
+<div class="row">
+	<div class="col-md-4 vcenter">
+		<% if animal.picture? %>
+			<%= image_tag animal.picture.thumb.url %>
+		<% else %>
+			<div class="tag_img"><%= animal.eartag %></div>
+		<% end %>
+	</div><!--
+--><div class="col-md-4 vcenter">
+		<ul class="description">
+			<li><span id="label">Eartag:</span> <span id="eartag"><%= animal.eartag %></span></li>
+			<li><span id="label">Sex:</span> <span id="sex"><%= animal.sex.capitalize %></span></li>
+			<li><span id="label">Dam:</span> <span id="dam"><%= animal.dam %></span></li>
+			<li><span id="label">Sire:</span> <span id="sire"><%= animal.sire %></span></li>
+			<li><span id="label">Breed:</span> <span id="sire">NA</span></li>
+		</ul>
+	</div><!--
+--><div class="col-md-4 vcenter">
+		<ul class="description">
+			<li><span id="label">Born:</span> <span id="born"><%= animal.birth_date %> </li>
+			<li><span id="label">Raised as:</span> <span id="raised_as">NA</li>
+			<li><span id="label">Birth type:</span> <span id="birth_type">NA</li>
+			<li><span id="label">Progeny:</span> <span id="progeny">NA</li>
+			<li><span id="label">Last weight:</span> <span id="last_weight">NA</span></li>
+		</ul>
+	</div>
+</div>

@@ -32,6 +32,6 @@ Rails.application.routes.draw do
 	# end
 
   get '/shepherds/:username/:eartag', to: 'animals#show', as: :shepherd_animal
-  get '/shepherds/:username/:eartag', to: 'animals#edit'
+  # get '/shepherds/:username/:eartag', to: 'animals#edit'
 
 end
