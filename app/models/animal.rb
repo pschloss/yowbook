@@ -1,4 +1,6 @@
 class Animal < ApplicationRecord
+	has_many :weights
+ 
   after_initialize :set_defaults, unless: :persisted?
   # The set_defaults will only work if the object is new
 
@@ -32,10 +34,17 @@ class Animal < ApplicationRecord
 			self.sire ||= ""
 			self.dam ||= ""
 			self.sex ||= "unknown"
-			next_eartag = Animal.first.eartag.to_i + 1
-			while(!Animal.find_by(eartag: next_eartag).nil?) do
-				next_eartag = next_eartag + 1
+
+			if(Animal.any?)
+				next_eartag = Animal.first.eartag.to_i + 1
+
+				while(!Animal.find_by(eartag: next_eartag).nil?) do
+					next_eartag = next_eartag + 1
+				end
+			else
+				next_eartag = 1
 			end
+
 			self.eartag ||= next_eartag
 		end
 

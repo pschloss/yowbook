@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170103180126) do
+ActiveRecord::Schema.define(version: 20170121233341) do
 
   create_table "animals", force: :cascade do |t|
     t.text     "eartag"
@@ -52,6 +52,17 @@ ActiveRecord::Schema.define(version: 20170103180126) do
     t.string   "username"
     t.index ["email"], name: "index_shepherds_on_email", unique: true
     t.index ["username"], name: "index_shepherds_on_username", unique: true
+  end
+
+  create_table "weights", force: :cascade do |t|
+    t.decimal  "weight"
+    t.string   "weight_type"
+    t.date     "date"
+    t.integer  "animal_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["animal_id", "created_at"], name: "index_weights_on_animal_id_and_created_at"
+    t.index ["animal_id"], name: "index_weights_on_animal_id"
   end
 
 end

@@ -1,7 +1,7 @@
 <% 50.times do |n| %>
 sheep_<%= n %>:
   eartag: <%= 1600 + n %>
-  birth_date: <% if(n!=4) %><%= Date.civil(10.months.ago.year, 10.months.ago.month, 10.months.ago.day) %><% else %>"2017-01-03"<% end %>
+  birth_date: <%= Faker::Date.between(9.years.ago, 8.years.ago).strftime("%F") %>
   shepherd: michael
   dam: 1701
   sire: 1702
@@ -11,17 +11,19 @@ sheep_<%= n %>:
 <% 50.times do |n| %>
 archer_sheep_<%= n %>:
   eartag: <%= 1600 + n %>
-  birth_date: Faker::Date.between(10.months.ago, 8.months.ago)
+  birth_date: <%= Faker::Date.between(9.years.ago, 8.years.ago).strftime("%F") %>
   shepherd: archer
   dam: 1703
+  sire: 1704
   sex: 	<%= [:wether, :wether, :wether, :ram, :ram, :ewe, :ewe, :ewe, :ewe, :teaser, :unknown].sample %>
 <% end %>
 
 <% 50.times do |n| %>
 lana_sheep_<%= n %>:
   eartag: <%= 1600 + n %>
-  birth_date: Faker::Date.between(10.months.ago, 8.months.ago)
+  birth_date: <%= Faker::Date.between(9.years.ago, 8.years.ago).strftime("%F") %>
   shepherd: lana
   dam: 1705
+  sire: 1706
   sex: 	<%= [:wether, :wether, :wether, :ram, :ram, :ewe, :ewe, :ewe, :ewe, :teaser, :unknown].sample %>
 <% end %>

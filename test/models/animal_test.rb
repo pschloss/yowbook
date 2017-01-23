@@ -74,7 +74,9 @@ class AnimalTest < ActiveSupport::TestCase
 	end
 
 	test "order should be most recent birth date first" do
-		assert_equal animals(:sheep_4), Animal.first
+		@animal = @shepherd.animals.build(eartag: "12345", birth_date: Date.current)
+		@animal.save
+		assert_equal @animal, Animal.first
 	end
 
 	test "next eartag should be one more than previous eartag" do
