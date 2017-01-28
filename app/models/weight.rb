@@ -13,14 +13,14 @@ class Weight < ApplicationRecord
 									invalid_date_message: "must be in YYYY-MM-DD format"
 
 	validate :weight_type_age
-
+	validate :weight_type_existance
 
 	private
 
 
 	def weight_type_age
 
-		if(!animal.nil?)
+		if(!animal.nil? && !date.nil? )
 			case weight_type
 			when "birth"
 				errors.add(:date, "should be the same as the lamb's birth date") if
@@ -44,10 +44,22 @@ class Weight < ApplicationRecord
 				errors.add(weight_type, "weight should be taken between 530 and 2315 days after the lamb's birth date") if
 					date - animal.birth_date < 530 || date - animal.birth_date > 2315
 			when "maintenance", "hanging"
-				errors.add(:date, "should be the same as the lamb's birth date") if
-					date <= animal.birth_date
+				errors.add(:date, "should be after the lamb's birth date") if
+					date < animal.birth_date
 			end
+		else
+			errors.add(:date, "must exist.")
 		end
 	end
+
+	def weight_type_existance
+
+		if !animal.nil? && animal.weights.length != 0
+			errors.add(weight_type, "record already exists for this animal.") unless
+				animal.weights.find_by(weight_type: weight_type).nil? || weight_type == "maintenance"
+		end
+
+	end
+
 
 end

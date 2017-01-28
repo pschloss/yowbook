@@ -5,7 +5,7 @@ class WeightTest < ActiveSupport::TestCase
 	def setup
 		@shepherd = shepherds(:michael)
 		@animal = @shepherd.animals.create(eartag: "12345G", birth_date: Date.civil(2006,4,30))
-		@weight = Weight.new(date: Date.civil(2006,4,30), weight: "11.5", weight_type: "birth", animal_id: @animal.id)
+		@weight = Weight.new(date: Date.civil(2006,4,30), weight: "11.5", weight_type: "maintenance", animal_id: @animal.id)
 
 	end
 
@@ -44,7 +44,7 @@ class WeightTest < ActiveSupport::TestCase
 		assert_not @weight.valid?
 
 		@weight.weight_type = "birth"
-		@weight.date = @animal.birth_date
+		@weight.date = "2006-04-30"
 		assert @weight.valid?
 
 
@@ -164,5 +164,24 @@ class WeightTest < ActiveSupport::TestCase
 		@weight.date = "2100-01-21"
 		assert_not @weight.valid?
 	end
+
+
+	test "weight type should only appear once unless its a maintenance weight" do
+
+		@weight = Weight.new(date: Date.civil(2006,4,30), weight: "11.5", weight_type: "birth", animal_id: @animal.id)
+		@weight.save
+
+		@weight = Weight.new(date: Date.civil(2006,4,30), weight: "11.5", weight_type: "birth", animal_id: @animal.id)
+		assert_not @weight.valid?
+
+
+		@weight = Weight.new(date: Date.civil(2006,4,30), weight: "11.5", weight_type: "maintenance", animal_id: @animal.id)
+		@weight.save
+
+		@weight = Weight.new(date: Date.civil(2006,4,30), weight: "11.5", weight_type: "maintenance", animal_id: @animal.id)
+		assert @weight.valid?
+
+	end
+
 
 end
