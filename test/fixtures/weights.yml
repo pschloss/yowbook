@@ -1,13 +1,17 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-# one:
-#   weight: 9.99
-#   weight_type: MyString
-#   date: 2017-01-21
-#   animal: one
+# birth:
+#   date: sheep_1.birth_date
+#   weight: 10
+#   weight_type: "birth"
+#   animal_id: sheep_1
 #
-# two:
-#   weight: 9.99
-#   weight_type: MyString
-#   date: 2017-01-21
-#   animal: two
+# weaning:
+#   date: sheep_1.birth_date+60
+#   weight: 50
+#   weight_type: "weaning"
+#   animal_id: sheep_1
+#
+# maintenance:
+#   date: sheep_1.birth_date+180
+#   weight: 160
+#   weight_type: "maintenance"
+#   animal_id: sheep_1

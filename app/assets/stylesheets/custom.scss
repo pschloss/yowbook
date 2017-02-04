@@ -427,6 +427,28 @@ ol.animals {
 }
 
 
+.weight-table {
+	width: 100%;
+  border: 1px solid #eee;
+  border-collapse: collapse;
+
+	th {
+    background-color: black;
+    color: white;
+		padding: 5px 10px;
+		text-align: center;
+	}
+	tr:nth-child(even) {
+    background-color: #eee;
+	}
+	td {
+		padding: 5px 10px;
+		text-align: center;
+	}
+
+}
+
+
 /* miscellaneous */
 
 .debug_dump {

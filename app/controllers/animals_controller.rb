@@ -24,6 +24,8 @@ class AnimalsController < ApplicationController
 	def show
 		@shepherd = Shepherd.find_by(username: params[:username])
 		@animal = @shepherd.animals.find_by(eartag: params[:eartag])
+		@weight = @animal.weights.build if logged_in?
+		@weights = @animal.weights
 	end
 
 	def update

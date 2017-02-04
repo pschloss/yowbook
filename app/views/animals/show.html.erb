@@ -1,5 +1,4 @@
 <% provide(:title, "#{@shepherd.name}'s #{@animal.eartag}") %>
-<% provide(:button_text, "Update record") %>
 
 <div class="row">
 	<aside class="col-md-3">
@@ -30,7 +29,24 @@
 				<% end %>
 		  </ul>
 		  <div class="ui-tabs-panel" id="weights">
-		    <p>Weights.</p>
+				<div class="row">
+					<div class="col-md-4">
+					<% if current_shepherd?(@shepherd) %>
+						<% provide(:button_text, "Create new weight") %>
+						<%= render 'shared/weight_form' %>
+					<% end %>
+					</div>
+					<div class="col-md-8">
+						<table class="weight-table">
+							<tr>
+								<th id="date">Date</th>
+								<th id="weight">Weight</th>
+								<th id="type">Type</th>
+							</tr>
+							<%= render @weights %>
+						</table>
+					</div>
+				</div>
 		  </div>
 		  <div class="ui-tabs-panel" id="pedigree">
 		    <p>Pedigree.</p>
@@ -43,7 +59,8 @@
 		  </div>
 			<% if current_shepherd?(@shepherd) %>
 			  <div class="ui-tabs-panel" id="edit">
-			    <%= render 'edit_data' %>
+					<% provide(:button_text, "Update record") %>
+			    <%= render 'animals/edit_data' %>
 					<%= link_to "Delete animal", @animal, method: :delete, data: { confirm: "Are you sure you want to remove all history of this animal? Alternatively, you can indicate that this animal is sold/dead." }, class: "btn btn-primary delete" %>
 			  </div>
 			<% end %>
