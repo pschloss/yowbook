@@ -1,4 +1,4 @@
-<% provide(:title, "#{@shepherd.name}'s #{@animal.eartag}") %>
+<% provide(:title, "#{@animal.shepherd.name}'s #{@animal.eartag}") %>
 
 <div class="row">
 	<aside class="col-md-3">
@@ -24,15 +24,14 @@
 		    <li><a href="#pedigree">Pedigree</a></li>
 		    <li><a href="#field_notes">Field Notes</a></li>
 		    <li><a href="#miscellaneous">Miscellaneous</a></li>
-				<% if current_shepherd?(@shepherd) %>
+				<% if current_shepherd?(@animal.shepherd) %>
 			    <li><a href="#edit">Edit</a></li>
 				<% end %>
 		  </ul>
 		  <div class="ui-tabs-panel" id="weights">
 				<div class="row">
 					<div class="col-md-4">
-					<% if current_shepherd?(@shepherd) %>
-						<% provide(:button_text, "Create new weight") %>
+					<% if current_shepherd?(@animal.shepherd) %>
 						<%= render 'shared/weight_form' %>
 					<% end %>
 					</div>
@@ -43,7 +42,7 @@
 								<th id="weight">Weight</th>
 								<th id="type">Type</th>
 							</tr>
-							<%= render @weights %>
+							<%= render @animal.weights %>
 						</table>
 					</div>
 				</div>
@@ -57,7 +56,7 @@
 		  <div class="ui-tabs-panel" id="miscellaneous">
 		    <p>Miscellaneous.</p>
 		  </div>
-			<% if current_shepherd?(@shepherd) %>
+			<% if current_shepherd?(@animal.shepherd) %>
 			  <div class="ui-tabs-panel" id="edit">
 					<% provide(:button_text, "Update record") %>
 			    <%= render 'animals/edit_data' %>

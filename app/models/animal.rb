@@ -1,10 +1,8 @@
 class Animal < ApplicationRecord
 	has_many :weights
- 
-  after_initialize :set_defaults, unless: :persisted?
-  # The set_defaults will only work if the object is new
-
   belongs_to :shepherd
+
+  after_initialize :set_defaults, unless: :persisted?
 	default_scope -> { order(birth_date: :desc, eartag: :desc) }
 	mount_uploader :picture, PictureUploader
 	validates :shepherd_id, presence: true
@@ -22,10 +20,25 @@ class Animal < ApplicationRecord
 															on_or_before_message: "must be today or earlier",
 															format: 'yyyy-mm-dd',
 															invalid_date_message: "must be in YYYY-MM-DD format"
-
 	validate :dam_sire_name
 	validate :picture_size
 	before_save :refresh_shepherd
+
+	def last_weight
+
+
+		if weights.first.nil?
+			"NA"
+		else
+			# i think because this method is used on the animal show page where a weight is built, it
+ 			# shows up as a nil-valued weight at the end of the array. so we need to remove the last
+			# weight value if it is nil.
+			w = weights.reject { |w| w.id.nil? || w.id == ''}
+			w.last.weight
+		end
+	end
+
+
 
 
 	private
@@ -68,7 +81,7 @@ class Animal < ApplicationRecord
 
 		#touch the shepherd's record to update the updated_at field
 		def refresh_shepherd
-		  Shepherd.find_by(id: shepherd_id).touch
+		  shepherd.touch
 		end
 
 

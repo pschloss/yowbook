@@ -1,5 +1,5 @@
 <% unless !current_shepherd?(@shepherd) %>
-	<%= form_for(@animal, html: { multipart: true }) do |f| %>
+	<%= form_for(@new_animal, html: { multipart: true }) do |f| %>
 		<%= render 'shared/error_messages', object: f.object %>
 		<div class="field">
 			<%= f.label :eartag %>

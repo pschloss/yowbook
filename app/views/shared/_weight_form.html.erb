@@ -1,17 +1,35 @@
 <% unless !current_shepherd?(@shepherd) %>
-	<%= form_for([@animal, @weight], method: :create, html: { multipart: true }) do |f| %>
+	<%
+	if @weight.id.nil?
+	  args = [@animal, @weight]
+		provide(:button_text, "Create new weight")
+	else
+	  args =  @weight
+		provide(:button_text, "Update weight")
+	end
+	%>
+
+	<%= form_for(args, html: { multipart: true }) do |f| %>
 		<%= render 'shared/error_messages', object: f.object %>
 		<div class="field">
 			<%= f.label :date %>
-			<%= f.text_field :date, class: 'form-control', value: Date.current  %>
+			<%= f.text_field :date, class: 'form-control', value: @weight.date || Date.current  %>
 
 			<%= f.label :weight %>
-			<%= f.text_field :weight, class: 'form-control'  %>
+			<%= f.text_field :weight, class: 'form-control', value: @weight.weight || nil  %>
 
 			<%= f.label :weight_type %>
-			<%= f.select(:weight_type, options_for_select([['Birth', 'birth'], ['Weaning', 'weaning'], ['Early Post Weaning', 'early_post_weaning'], ['Post Weaning', 'post_weaning'], ['Yearling', 'yearling'], ['Hogget', 'hogget'], ['Adult', 'adult'], ['Maintenance', 'maintenance'], ['Hanging', 'hanging']], 1)) %>
+			<%= f.select(:weight_type, options_for_select([['Birth', 'birth'], ['Weaning', 'weaning'], ['Early Post Weaning', 'early_post_weaning'], ['Post Weaning', 'post_weaning'], ['Yearling', 'yearling'], ['Hogget', 'hogget'], ['Adult', 'adult'], ['Maintenance', 'maintenance'], ['Hanging', 'hanging']], @weight.weight_type || 1 )) %>
 		</div>
 		<%= f.submit yield(:button_text), class: "btn btn-primary" %>
+
+		<% if !@weight.id.nil? %>
+			<%= link_to "Delete weight", weight_path(@weight.id), method: :delete, data: { confirm: "Are you sure you want to remove this weight record." }, class: "btn btn-primary delete" %>
+		<% end %>
+
+		<% if !@weight.id.nil? %>
+			<%= link_to "Cancel update", shepherd_animal_path(@shepherd.username, @animal.eartag), class: "btn btn-primary cancel" %>
+		<% end %>
 
 	<% end %>
 <% end %>

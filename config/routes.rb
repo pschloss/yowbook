@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 	resources :relationships,       only: [:create, :destroy]
 
 	resources :animals do
-		resources :weights, shallow:true 
+		resources :weights, shallow:true, only: [:new, :create, :edit, :update, :destroy]
 	end
 
   get '/shepherds/:username/:eartag', to: 'animals#show', as: :shepherd_animal

@@ -1,5 +1,11 @@
-<tr id="weight-<%= weight.id %>">
-	<td id="date"><%= weight.date %></td>	<!-- date -->
-	<td id="weight"><%= weight.weight %></td>	<!-- weight -->
-	<td id="type"><%= weight.weight_type %></td>	<!-- type -->
-</tr>
+<% if !weight.id.nil? %>
+	<% if current_shepherd?(@shepherd) %>
+		<tr id="weight-<%= weight.id %>" style="cursor:pointer" data-link="<%= edit_weight_path(weight.id) %>">
+	<% else %>
+		<tr id="weight-<%= weight.id %>">
+	<% end %>
+		<td id="date"><%= weight.date %></td>	<!-- date -->
+		<td id="weight"><%= weight.weight %></td>	<!-- weight -->
+		<td id="type"><%= weight.weight_type.titleize %></td>	<!-- type -->
+	</tr>
+<% end %>

@@ -1,12 +1,12 @@
 class AnimalsController < ApplicationController
 	before_action :logged_in_shepherd, only: [:create, :destroy, :show]
-	before_action :correct_shepherd, only: [:destroy] #,:edit]
+	before_action :correct_shepherd, only: [:destroy,:edit]
 
 	def create
 		@shepherd = current_shepherd
-		@animal = current_shepherd.animals.build(animal_params)
+		@new_animal = current_shepherd.animals.build(animal_params)
 
-		if @animal.save
+		if @new_animal.save
 			flash[:success] = "Sheep added!"
 			redirect_to shepherd_path(current_shepherd)
 		else
@@ -23,9 +23,8 @@ class AnimalsController < ApplicationController
 
 	def show
 		@shepherd = Shepherd.find_by(username: params[:username])
-		@animal = @shepherd.animals.find_by(eartag: params[:eartag])
+		@animal = Animal.find_by(shepherd_id: @shepherd.id, eartag: params[:eartag])
 		@weight = @animal.weights.build if logged_in?
-		@weights = @animal.weights
 	end
 
 	def update
@@ -36,6 +35,9 @@ class AnimalsController < ApplicationController
 		else
 			render 'edit'
 		end
+	end
+
+	def edit
 	end
 
 	private

@@ -12,7 +12,7 @@ class ShepherdsController < ApplicationController
 	def show
 		@shepherd = Shepherd.friendly.find(params[:id])
 		redirect_to root_url and return unless @shepherd.activated
-		@animal = current_shepherd.animals.build if logged_in?
+		@new_animal = current_shepherd.animals.build if logged_in?
 		@animals = @shepherd.animals.paginate(page: params[:page])
 	end
 

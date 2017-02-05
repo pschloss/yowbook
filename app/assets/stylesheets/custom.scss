@@ -365,6 +365,20 @@ ol.animals {
 		border-color: #A00;
 		}
 	}
+
+	.btn.btn-primary.cancel {
+		margin-top: 10px;
+		color: white;
+		background-color: #0A0;
+		border-color: #0A0;
+		width: 100%;
+
+		&:hover {
+		background-color: #060;
+		border-color: #060;
+		}
+	}
+
 }
 
 
