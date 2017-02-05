@@ -46,9 +46,8 @@ class AnimalsInterfaceTest < ActionDispatch::IntegrationTest
 		assert_difference 'Animal.count', 1 do
 			post animals_path, params: { animal: {  eartag: eartag,
 																							birth_date: birth_date,
- 																							picture: picture} }
+ 																							picture: picture } }
 		end
-		assert assigns(:animal).picture?
 		assert_redirected_to shepherd_path(@shepherd)
 		follow_redirect!
 
@@ -66,7 +65,6 @@ class AnimalsInterfaceTest < ActionDispatch::IntegrationTest
 																							sire: sire,
 																							sex: "ewe"} }
 		end
-		assert assigns(:animal).picture?
 		assert_redirected_to shepherd_path(@shepherd)
 		follow_redirect!
 

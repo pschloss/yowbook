@@ -12,7 +12,6 @@ class Weight < ApplicationRecord
 									format: 'yyyy-mm-dd',
 									invalid_date_message: "must be in YYYY-MM-DD format"
 	validate :weight_type_age
-	validate :weight_type_weight_range
 	validate :weight_type_existance
   default_scope { order(:date) }
 
@@ -26,8 +25,6 @@ class Weight < ApplicationRecord
 
 					if date != animal.birth_date
 						errors.add(:date, "should be the same as the lamb's birth date")
-					else
-  					animal.update_attribute(:birth_weight, weight)
 					end
 
 				when "weaning"
@@ -35,16 +32,12 @@ class Weight < ApplicationRecord
 					if (date - animal.birth_date).to_i < 40 || (date - animal.birth_date).to_i > 120
 						errors.add(weight_type,
 									"weight should be taken between 40 and 120 days after the lamb's birth date")
-					else
-  					animal.update_attribute(:weaning_weight, weight)
 					end
 
 				when "early_post_weaning"
 					if date - animal.birth_date < 80 || date - animal.birth_date > 240
 						errors.add(weight_type,
 										"weight should be taken between 80 and 240 days after the lamb's birth date")
-					else
-  					animal.update_attribute(:early_post_weaning_weight, weight)
 					end
 
 				when "post_weaning"
@@ -52,8 +45,6 @@ class Weight < ApplicationRecord
 					if date - animal.birth_date < 160 || date - animal.birth_date > 340
 						errors.add(weight_type,
 									"weight should be taken between 160 and 340 days after the lamb's birth date")
-					else
-  					animal.update_attribute(:post_weaning_weight, weight)
 					end
 
 				when "yearling"
@@ -61,8 +52,6 @@ class Weight < ApplicationRecord
 					if date - animal.birth_date < 290 || date - animal.birth_date > 430
 						errors.add(weight_type,
 									"weight should be taken between 290 and 430 days after the lamb's birth date")
-					else
-  					animal.update_attribute(:yearling_weight, weight)
 					end
 
 				when "hogget"
@@ -70,8 +59,6 @@ class Weight < ApplicationRecord
 					if date - animal.birth_date < 410 || date - animal.birth_date > 550
 						errors.add(weight_type,
 									"weight should be taken between 410 and 550 days after the lamb's birth date")
-					else
-  					animal.update_attribute(:hogget_weight, weight)
 					end
 
 				when "adult"
@@ -79,16 +66,12 @@ class Weight < ApplicationRecord
 					if date - animal.birth_date < 530 || date - animal.birth_date > 2315
 						errors.add(weight_type,
 									"weight should be taken between 530 and 2315 days after the lamb's birth date")
-					else
-  					animal.update_attribute(:adult_weight, weight)
 					end
 
 				when "hanging"
 
 					if date < animal.birth_date
 						errors.add(:date, "should be after the lamb's birth date")
-					else
-  					animal.update_attribute(:hanging_weight, weight)
 					end
 
 				when "maintenance"
@@ -99,94 +82,7 @@ class Weight < ApplicationRecord
 			else
 				errors.add(:date, "must exist.")
 			end
-
 		end
-
-
-		def weight_type_weight_range
-
-			if(!animal.nil? && !date.nil? )
-				case weight_type
-				when "birth"
-
-					if weight > 30
-						errors.add(:date, "should be less than 30 pounds")
-					else
-  					animal.update_attribute(:birth_weight, weight)
-					end
-
-				when "weaning"
-
-					if weight > 400
-						errors.add(weight_type, "weight should be less than 400 pounds")
-					else
-  					animal.update_attribute(:weaning_weight, weight)
-					end
-
-				when "early_post_weaning"
-					if weight > 400
-						errors.add(weight_type,
-										"weight should be taken between 80 and 240 days after the lamb's birth date")
-					else
-  					animal.update_attribute(:early_post_weaning_weight, weight)
-					end
-
-				when "post_weaning"
-
-					if date - animal.birth_date < 160 || date - animal.birth_date > 340
-						errors.add(weight_type,
-									"weight should be taken between 160 and 340 days after the lamb's birth date")
-					else
-  					animal.update_attribute(:post_weaning_weight, weight)
-					end
-
-				when "yearling"
-
-					if date - animal.birth_date < 290 || date - animal.birth_date > 430
-						errors.add(weight_type,
-									"weight should be taken between 290 and 430 days after the lamb's birth date")
-					else
-  					animal.update_attribute(:yearling_weight, weight)
-					end
-
-				when "hogget"
-
-					if date - animal.birth_date < 410 || date - animal.birth_date > 550
-						errors.add(weight_type,
-									"weight should be taken between 410 and 550 days after the lamb's birth date")
-					else
-  					animal.update_attribute(:hogget_weight, weight)
-					end
-
-				when "adult"
-
-					if date - animal.birth_date < 530 || date - animal.birth_date > 2315
-						errors.add(weight_type,
-									"weight should be taken between 530 and 2315 days after the lamb's birth date")
-					else
-  					animal.update_attribute(:adult_weight, weight)
-					end
-
-				when "hanging"
-
-					if date < animal.birth_date
-						errors.add(:date, "should be after the lamb's birth date")
-					else
-  					animal.update_attribute(:hanging_weight, weight)
-					end
-
-				when "maintenance"
-					errors.add(:date,
-									"should be after the lamb's birth date") if
-						date < animal.birth_date
-				end
-			else
-				errors.add(:date, "must exist.")
-			end
-
-		end
-
-
 
 
 		def weight_type_existance

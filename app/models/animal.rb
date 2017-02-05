@@ -26,8 +26,7 @@ class Animal < ApplicationRecord
 
 	def last_weight
 
-
-		if weights.first.nil?
+		if weights.count==0 || weights.first.nil?
 			"NA"
 		else
 			# i think because this method is used on the animal show page where a weight is built, it

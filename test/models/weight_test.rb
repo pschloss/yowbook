@@ -33,6 +33,17 @@ class WeightTest < ActiveSupport::TestCase
 		assert_not @weight.valid?
 	end
 
+	test "weight should be within a valid range" do
+		@weight.weight = -1
+		assert_not @weight.valid?
+
+		@weight.weight = 2000
+		assert_not @weight.valid?
+
+		@weight.weight = 11.4
+		assert @weight.valid?
+	end
+
 	test "weight should be a valid type and date" do
 
 		@weight.weight_type = "birth"
@@ -175,12 +186,15 @@ class WeightTest < ActiveSupport::TestCase
 		assert_not @weight.valid?
 
 
-		@weight = Weight.new(date: Date.civil(2006,4,30), weight: "11.5", weight_type: "maintenance", animal_id: @animal.id)
+		@weight = Weight.new(date: Date.civil(2006,5,30), weight: "11.3", weight_type: "maintenance", animal_id: @animal.id)
 		@weight.save
 
 		@weight = Weight.new(date: Date.civil(2006,4,30), weight: "11.5", weight_type: "maintenance", animal_id: @animal.id)
 		assert @weight.valid?
+		@weight.save
 
+		#make sure that the earliest date is first in the ordering...
+		assert Weight.first.weight, "11.5"
 	end
 
 
