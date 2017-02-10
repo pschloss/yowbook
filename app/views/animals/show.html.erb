@@ -19,16 +19,19 @@
 			</div>
 
 			<div class="ui-tabs" id="tabs">
-		  <ul class="ui-tabs-nav">
-		    <li><a href="#weights">Weights</a></li>
-		    <li><a href="#pedigree">Pedigree</a></li>
-		    <li><a href="#field_notes">Field Notes</a></li>
-		    <li><a href="#miscellaneous">Miscellaneous</a></li>
+			<ul class="ui-tabs-nav">
+				<li><a href="#weights">Weights</a></li>
+				<li><a href="#pedigree">Pedigree</a></li>
+				<li><a href="#field_notes">Field Notes</a></li>
+				<li><a href="#miscellaneous">Miscellaneous</a></li>
 				<% if current_shepherd?(@animal.shepherd) %>
-			    <li><a href="#edit">Edit</a></li>
+					<li><a href="#edit">Edit</a></li>
+					<li id="float-right">
+						<%= render 'animal_status_form' %>
+					</li>
 				<% end %>
-		  </ul>
-		  <div class="ui-tabs-panel" id="weights">
+			</ul>
+			<div class="ui-tabs-panel" id="weights">
 				<div class="row">
 					<div class="col-md-4">
 					<% if current_shepherd?(@animal.shepherd) %>

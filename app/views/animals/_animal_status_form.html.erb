@@ -1,0 +1,13 @@
+<div id="activate_form">
+<% if @animal.active? %>
+	<%= form_for( @animal, html: { multipart: true }) do |f| %>
+		<%= f.hidden_field :active, value: false %>
+		<%= f.submit 'Deactivate', class: "btn btn-danger" %>
+	<% end %>
+<% else %>
+	<%= form_for @animal do |f| %>
+		<%= f.hidden_field :active, value: true %>
+		<%= f.submit 'Activate', class: "btn btn-primary" %>
+	<% end %>
+<% end %>
+</div>

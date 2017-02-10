@@ -102,6 +102,19 @@ class Shepherd < ApplicationRecord
 		following.include?(other_user)
 	end
 
+	def count_active
+		animals.where(active: true).count
+	end
+
+	def count_inactive
+		animals.where(active: false).count
+	end
+
+	def count_type(type)
+		animals.where(active: true, sex: type).count
+	end
+
+
 	private
 
 		def create_activation_digest

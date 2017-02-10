@@ -341,10 +341,19 @@ ol.animals {
 			border-bottom-color: $gray-medium-light;
 			border-bottom-width: 1px;
 			background-color: #FFF;
+
+			li#float-right {
+				float: right;
+
+				input {
+					margin: 0;
+					padding: 3px 6px;
+				}
+			}
 		}
 		.ui-state-active {
-			background-color: red;
-			border-color: red;
+			background-color: #337ab7;
+			border-color: #337ab7;
 		}
 	}
 

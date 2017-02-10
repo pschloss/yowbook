@@ -25,3 +25,9 @@ If the test suite passes, you'll be ready to run the app in a local server:
 ```
 $ rails server
 ```
+
+
+## Recovering from byebug crash
+
+lsof -wni tcp:3000 
+kill -9 PID

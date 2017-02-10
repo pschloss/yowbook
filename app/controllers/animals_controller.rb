@@ -29,9 +29,10 @@ class AnimalsController < ApplicationController
 
 	def update
 		@animal = Animal.find(params[:id])
+
 		if @animal.update_attributes(animal_params)
 			flash[:success] = "Animal updated"
-			redirect_to shepherd_animal_path(username: current_shepherd[:username], eartag: animal_params[:eartag])
+			redirect_to shepherd_animal_path(username: current_shepherd[:username], eartag: @animal.eartag)
 		else
 			render 'edit'
 		end
@@ -43,7 +44,7 @@ class AnimalsController < ApplicationController
 	private
 
 		def animal_params
-			params.require(:animal).permit(:eartag, :birth_date, :picture, :dam, :sire, :sex)
+			params.require(:animal).permit(:eartag, :birth_date, :picture, :dam, :sire, :sex, :active)
 		end
 
 		def correct_shepherd

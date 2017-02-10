@@ -1,4 +1,11 @@
 <%= link_to gravatar_for(@shepherd, size: 50), @shepherd %>
 <h1><%= link_to @shepherd.name, @shepherd  %></h1>
-<span><%= pluralize(@shepherd.animals.count, "sheep") %></span>
+<span><%= pluralize(@shepherd.animals.count, "active sheep") %>
+(<%= pluralize(@shepherd.count_type("ewe"), "ewe") %> |
+<%= pluralize(@shepherd.count_type("ram"), "ram") %> |
+<%= pluralize(@shepherd.count_type("wether"), "wether") %> |
+<%= pluralize(@shepherd.count_type("teaser"), "teaser") %> |
+<%= pluralize(@shepherd.count_type("unknown"), "unknown") %>)
+<%= pluralize(@shepherd.count_inactive, "inactive sheep") %>
+</span>
 <span>Updated <%= time_ago_in_words(@shepherd.updated_at) %> ago</span>
