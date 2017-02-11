@@ -26,9 +26,6 @@
 				<li><a href="#miscellaneous">Miscellaneous</a></li>
 				<% if current_shepherd?(@animal.shepherd) %>
 					<li><a href="#edit">Edit</a></li>
-					<li id="float-right">
-						<%= render 'animal_status_form' %>
-					</li>
 				<% end %>
 			</ul>
 			<div class="ui-tabs-panel" id="weights">
@@ -61,7 +58,7 @@
 		  </div>
 			<% if current_shepherd?(@animal.shepherd) %>
 			  <div class="ui-tabs-panel" id="edit">
-					<% provide(:button_text, "Update record") %>
+					<% provide(:edit_animal_button_text, "Update record") %>
 			    <%= render 'animals/edit_data' %>
 					<%= link_to "Delete animal", @animal, method: :delete, data: { confirm: "Are you sure you want to remove all history of this animal? Alternatively, you can indicate that this animal is sold/dead." }, class: "btn btn-primary delete" %>
 			  </div>

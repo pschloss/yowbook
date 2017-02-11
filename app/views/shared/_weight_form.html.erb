@@ -2,10 +2,10 @@
 	<%
 	if @weight.id.nil?
 	  args = [@animal, @weight]
-		provide(:button_text, "Create new weight")
+		provide(:weight_button_text, "Create new weight")
 	else
 	  args =  @weight
-		provide(:button_text, "Update weight")
+		provide(:weight_button_text, "Update weight")
 	end
 	%>
 
@@ -21,7 +21,7 @@
 			<%= f.label :weight_type %>
 			<%= f.select(:weight_type, options_for_select([['Birth', 'birth'], ['Weaning', 'weaning'], ['Early Post Weaning', 'early_post_weaning'], ['Post Weaning', 'post_weaning'], ['Yearling', 'yearling'], ['Hogget', 'hogget'], ['Adult', 'adult'], ['Maintenance', 'maintenance'], ['Hanging', 'hanging']], @weight.weight_type || 1 )) %>
 		</div>
-		<%= f.submit yield(:button_text), class: "btn btn-primary" %>
+		<%= f.submit yield(:weight_button_text), class: "btn btn-primary" %>
 
 		<% if !@weight.id.nil? %>
 			<%= link_to "Delete weight", weight_path(@weight.id), method: :delete, data: { confirm: "Are you sure you want to remove this weight record." }, class: "btn btn-primary delete" %>
