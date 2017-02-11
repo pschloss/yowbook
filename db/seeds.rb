@@ -24,15 +24,34 @@ end
 shepherds = Shepherd.order(:created_at).take(6)
 for i in 1..50 do
 	eartag = 1600 + i
-	birth_date = Faker::Date.between(10.months.ago, 8.months.ago)
+	birth_date = Faker::Date.between(7.months.ago, 8.months.ago)
 	sex = [:wether, :wether, :wether, :ram, :ram, :ewe, :ewe, :ewe, :ewe, :teaser, :unknown].sample
 	shepherds.each { |shepherd| shepherd.animals.create!(
 													eartag: eartag,
 													birth_date: birth_date,
 													dam: shepherd.id+1000,
 													sire: shepherd.id+2000,
-													sex: sex) }
+													sex: sex,
+													status: "active",
+													status_date: birth_date
+												)
+									}
 end
+
+animals = Animal.order(:created_at)
+animals.each {|animal| animal.weights.create!(
+										date: animal.birth_date,
+										weight_type: "birth",
+										weight: Faker::Number.between(8,12)
+									)
+							}
+animals.each {|animal| animal.weights.create!(
+										date: 5.months.ago,
+										weight_type: "weaning",
+										weight: Faker::Number.between(50,70)
+									)
+							}
+
 
 # Following relationships
 shepherds = Shepherd.all

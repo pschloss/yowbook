@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170121233341) do
+ActiveRecord::Schema.define(version: 20170211131447) do
 
   create_table "animals", force: :cascade do |t|
     t.text     "eartag"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 20170121233341) do
     t.string   "dam"
     t.string   "sire"
     t.string   "sex"
+    t.string   "status"
+    t.date     "status_date"
     t.index ["shepherd_id", "created_at"], name: "index_animals_on_shepherd_id_and_created_at"
     t.index ["shepherd_id"], name: "index_animals_on_shepherd_id"
   end

@@ -3,8 +3,9 @@ require 'test_helper'
 class AnimalTest < ActiveSupport::TestCase
 
 	def setup
+		date = Date.civil(2015,4,30)
 		@shepherd = shepherds(:michael)
-		@animal = @shepherd.animals.build(eartag: "12345G", birth_date: Date.civil(2015,4,30))
+		@animal = @shepherd.animals.build(eartag: "12345G", birth_date: date)
 	end
 
 	test "should be valid" do
@@ -73,18 +74,35 @@ class AnimalTest < ActiveSupport::TestCase
 		assert @animal.valid?
 	end
 
+	test "should accept a valid status" do
+		@animal.status = 'culled'
+		@animal.status_date = @animal.birth_date + 6.months
+	end
+
 	test "order should be most recent birth date first" do
-		@animal = @shepherd.animals.build(eartag: "12345", birth_date: Date.current)
+		@animal = @shepherd.animals.build(eartag: "12346", birth_date: Date.current)
 		@animal.save
 		assert_equal @animal, Animal.first
 	end
 
 	test "next eartag should be one more than previous eartag" do
-		@animal = @shepherd.animals.build(eartag: "12345", birth_date: Date.current)
+
+		@animal = @shepherd.animals.create(eartag: "12345", birth_date: Date.current)
 		@animal.save
 		assert_equal "12346", @shepherd.animals.build.eartag
+
 		@animal = @shepherd.animals.build(eartag: "12344", birth_date: Date.current)
 		@animal.save
 		assert_equal "12346", @shepherd.animals.build.eartag
+
+		@other_shepherd = shepherds(:archer)
+		@animal = @other_shepherd.animals.create(eartag: "12346", birth_date: Date.current)
+		@animal.save
+
+		assert_equal "12346", @shepherd.animals.build.eartag
+
+
+#need to see what happens if archer adds an animal.
+
 	end
 end

@@ -15,6 +15,14 @@ class Animal < ApplicationRecord
 	validates :sex, length: { maximum: 10 },
 									inclusion: { in: %w(ewe ram wether teaser unknown),
 															message: "%{value} is not an accepted value." }
+	validates :status, length: { maximum: 10 },
+									inclusion: { in: %w(active stillborn dead sold culled),
+															message: "%{value} is not an accepted value." }
+	validates_date :status_date, presence: true,
+															on_or_before: lambda { Date.current },
+															on_or_before_message: "must be today or earlier",
+															format: 'yyyy-mm-dd',
+															invalid_date_message: "must be in YYYY-MM-DD format"
 	validates_date :birth_date, presence: true,
 															on_or_before: lambda { Date.current },
 															on_or_before_message: "must be today or earlier",
@@ -22,6 +30,7 @@ class Animal < ApplicationRecord
 															invalid_date_message: "must be in YYYY-MM-DD format"
 	validate :dam_sire_name
 	validate :picture_size
+	validate :status_and_date
 	before_save :refresh_shepherd
 
 	def last_weight
@@ -41,16 +50,19 @@ class Animal < ApplicationRecord
 
 
 	private
+		def activate_animal
+		end
 
 		def set_defaults
 			self.sire ||= ""
 			self.dam ||= ""
 			self.sex ||= "unknown"
+			self.status ||= "active"
+			self.status_date ||= Date.today
 
-			if(Animal.any?)
-				next_eartag = Animal.first.eartag.to_i + 1
-
-				while(!Animal.find_by(eartag: next_eartag).nil?) do
+			if(!Animal.find_by(shepherd_id: shepherd.id).nil?)
+				next_eartag = Animal.find_by(shepherd_id: shepherd.id).eartag.to_i + 1
+				while(!Animal.find_by(shepherd_id: shepherd.id, eartag: next_eartag).nil?) do
 					next_eartag = next_eartag + 1
 				end
 			else
@@ -75,6 +87,24 @@ class Animal < ApplicationRecord
 
 			errors.add(:base, "Dam and sire should not have the same eartag") if
 				sire == dam && sire != ""
+		end
+
+		def status_and_date
+			if(!status_date.nil? && !status.nil?)
+
+				if(status == "stillborn")
+
+					errors.add(:date, "should be the same as the lamb's birth date") if status_date != birth_date
+
+				elsif (status == "dead" || status == "sold" || status == "culled")
+
+					errors.add(:date, "should be after the lamb's birth date") if status_date <= birth_date
+
+				end
+
+			else
+				errors.add(:date_and_status, "must exist.")
+			end
 		end
 
 

@@ -1,29 +1,38 @@
 <% 50.times do |n| %>
+<% date = Faker::Date.between(9.years.ago, 8.years.ago).strftime("%F") %>
 sheep_<%= n %>:
   eartag: <%= 1600 + n %>
-  birth_date: <%= Faker::Date.between(9.years.ago, 8.years.ago).strftime("%F") %>
+  birth_date: <%= date %>
   shepherd: michael
   dam: 1701
   sire: 1702
   sex: 	<%= [:wether, :wether, :wether, :ram, :ram, :ewe, :ewe, :ewe, :ewe, :teaser, :unknown].sample %>
+  status: active
+  status_date: <%= date %>
 <% end %>
 
 <% 50.times do |n| %>
+<% date = Faker::Date.between(9.years.ago, 8.years.ago).strftime("%F") %>
 archer_sheep_<%= n %>:
   eartag: <%= 1600 + n %>
-  birth_date: <%= Faker::Date.between(9.years.ago, 8.years.ago).strftime("%F") %>
+  birth_date: <%= date %>
   shepherd: archer
   dam: 1703
   sire: 1704
   sex: 	<%= [:wether, :wether, :wether, :ram, :ram, :ewe, :ewe, :ewe, :ewe, :teaser, :unknown].sample %>
+  status: "active"
+  status_date: <%= date %>
 <% end %>
 
 <% 50.times do |n| %>
+<% date = Faker::Date.between(9.years.ago, 8.years.ago).strftime("%F") %>
 lana_sheep_<%= n %>:
   eartag: <%= 1600 + n %>
-  birth_date: <%= Faker::Date.between(9.years.ago, 8.years.ago).strftime("%F") %>
+  birth_date: <%= date %>
   shepherd: lana
   dam: 1705
   sire: 1706
   sex: 	<%= [:wether, :wether, :wether, :ram, :ram, :ewe, :ewe, :ewe, :ewe, :teaser, :unknown].sample %>
+  status: "active"
+  status_date: <%= date %>
 <% end %>

@@ -122,7 +122,7 @@ class ShepherdTest < ActiveSupport::TestCase
 
 
 
-	test "associated microposts should be destroyed" do
+	test "associated animals should be destroyed" do
 		@shepherd.save
 		@shepherd.animals.create!(eartag: "12345G", birth_date: Date.civil(2015,4,30) )
 		assert_difference 'Animal.count', -1 do
