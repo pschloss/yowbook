@@ -17,6 +17,12 @@
 			<%= f.label :sire %>
 			<%= f.text_field :sire, class: 'form-control'  %>
 
+			<%= f.label :status %>
+			<%= f.select(:status, options_for_select([['Active', 'active'], ['Died', 'died'], ['Sold','sold'], ['Culled', 'culled'], ['Stillborn', 'stillborn']], @animal.status)) %>
+
+			<%= f.label :status_date %>
+			<%= f.text_field :status_date, class: 'form-control', value: @animal.status_date  %>
+
 			<%= f.label :picture %>
 			<%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
 		</div>

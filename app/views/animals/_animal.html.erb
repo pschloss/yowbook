@@ -7,7 +7,11 @@
 			<%= render 'shared/basic_info', animal: animal %>
 
 			<div class="update-list">
-				Updated <%= time_ago_in_words(animal.updated_at) %> ago
+				<% if animal.status == 'active' %>
+					Updated <%= time_ago_in_words(animal.updated_at) %> ago
+				<% else %>
+					<%= animal.status.titleize %> <%= time_ago_in_words(animal.status_date) %> ago
+				<% end %>
 			</div>
 
 		</div>

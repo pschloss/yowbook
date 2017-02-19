@@ -60,7 +60,7 @@
 			  <div class="ui-tabs-panel" id="edit">
 					<% provide(:edit_animal_button_text, "Update record") %>
 			    <%= render 'animals/edit_data' %>
-					<%= link_to "Delete animal", @animal, method: :delete, data: { confirm: "Are you sure you want to remove all history of this animal? Alternatively, you can indicate that this animal is sold/dead." }, class: "btn btn-primary delete" %>
+					<%= link_to "Delete animal", @animal, method: :delete, data: { confirm: "Are you sure you want to remove all history of this animal? Alternatively, you can indicate that this animal was sold/died." }, class: "btn btn-primary delete" %>
 			  </div>
 			<% end %>
 

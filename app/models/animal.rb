@@ -16,7 +16,7 @@ class Animal < ApplicationRecord
 									inclusion: { in: %w(ewe ram wether teaser unknown),
 															message: "%{value} is not an accepted value." }
 	validates :status, length: { maximum: 10 },
-									inclusion: { in: %w(active stillborn dead sold culled),
+									inclusion: { in: %w(active stillborn died sold culled),
 															message: "%{value} is not an accepted value." }
 	validates_date :status_date, presence: true,
 															on_or_before: lambda { Date.current },
@@ -96,7 +96,7 @@ class Animal < ApplicationRecord
 
 					errors.add(:date, "should be the same as the lamb's birth date") if status_date != birth_date
 
-				elsif (status == "dead" || status == "sold" || status == "culled")
+				elsif (status == "died" || status == "sold" || status == "culled")
 
 					errors.add(:date, "should be after the lamb's birth date") if status_date <= birth_date
 
