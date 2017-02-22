@@ -32,9 +32,13 @@ class AnimalsController < ApplicationController
 
 		if @animal.update_attributes(animal_params)
 			flash[:success] = "Animal updated"
+			@error = false
 			redirect_to shepherd_animal_path(username: current_shepherd[:username], eartag: @animal.eartag)
 		else
-			render 'edit'
+			@shepherd = @animal.shepherd
+			@weight = Weight.new
+			@error = true
+			render 'animals/show'
 		end
 	end
 
