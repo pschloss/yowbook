@@ -25,7 +25,11 @@
 				<li><a href="#field_notes">Field Notes</a></li>
 				<li><a href="#miscellaneous">Miscellaneous</a></li>
 				<% if current_shepherd?(@animal.shepherd) %>
-					<li><a href="#edit">Edit</a></li>
+					<% if @error %>
+						<li class="ui-tabs-active"><a href="#edit">Edit</a></li>
+					<% else %>
+						<li><a href="#edit">Edit</a></li>
+					<% end %>
 				<% end %>
 			</ul>
 			<div class="ui-tabs-panel" id="weights">
