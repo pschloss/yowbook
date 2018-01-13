@@ -9,7 +9,7 @@ class AnimalsInterfaceTest < ActionDispatch::IntegrationTest
 	test "animal interface" do
 		log_in_as(@shepherd)
 		follow_redirect!
-		# $stdout.print response.body
+	  # $stdout.print response.body
 		assert_select 'div.pagination'
 		assert_select 'input[type=file]'
 
@@ -22,19 +22,19 @@ class AnimalsInterfaceTest < ActionDispatch::IntegrationTest
 
 		#invalid submission
 		assert_no_difference 'Animal.count' do
-			post animals_path, params: { animal: { eartag: "1234", birth_date: "2090-12-12", dam: "1234", sire: "1234" } }
+			post animals_path, params: { animal: { eartag: "1402", birth_date: "2090-12-12", dam_eartag: animals(:wether).eartag, sire_eartag: animals(:wether).eartag } }
+		end
+		assert_select 'div#error_explanation>ul>li', 5
+
+		#invalid submission
+		assert_no_difference 'Animal.count' do
+			post animals_path, params: { animal: { eartag: "1400", birth_date: "12/12/2015", dam_eartag: "1400", sire_eartag: "1400" } }
 		end
 		assert_select 'div#error_explanation>ul>li', 4
 
 		#invalid submission
 		assert_no_difference 'Animal.count' do
-			post animals_path, params: { animal: { eartag: "1234", birth_date: "12/12/2015", dam: "1234", sire: "1234" } }
-		end
-		assert_select 'div#error_explanation>ul>li', 4
-
-		#invalid submission
-		assert_no_difference 'Animal.count' do
-			post animals_path, params: { animal: { eartag: "1234", birth_date: "2015/12/12", dam: "1234", sire: "1234" } }
+			post animals_path, params: { animal: { eartag: "1400", birth_date: "2015/12/12", dam_eartag: "1400", sire_eartag: "1400" } }
 		end
 		assert_select 'div#error_explanation>ul>li', 4
 
@@ -54,15 +54,27 @@ class AnimalsInterfaceTest < ActionDispatch::IntegrationTest
 		#valid submission 2
 		eartag = "123ABD"
 		birth_date = "2016-04-20"
-		dam = "1"
-		sire = "2"
 		picture = fixture_file_upload('images/rails.png', 'image/png')
 		assert_difference 'Animal.count', 1 do
 			post animals_path, params: { animal: {  eartag: eartag,
 																							birth_date: birth_date,
  																							picture: picture,
-																							dam: dam,
-																							sire: sire,
+																							dam_eartag: animals(:dam).eartag,
+																							sire_eartag: animals(:sire).eartag,
+																							sex: "ewe"} }
+		end
+		assert_redirected_to shepherd_path(@shepherd)
+		follow_redirect!
+
+		#valid submission 3
+		eartag = "123ABDE"
+		birth_date = "2016-04-20"
+		picture = fixture_file_upload('images/rails.png', 'image/png')
+		assert_difference 'Animal.count', 1 do
+			post animals_path, params: { animal: {  eartag: eartag,
+																							birth_date: birth_date,
+ 																							picture: picture,
+																							sire_eartag: animals(:sire).eartag,
 																							sex: "ewe"} }
 		end
 		assert_redirected_to shepherd_path(@shepherd)

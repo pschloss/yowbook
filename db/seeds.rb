@@ -22,6 +22,7 @@ end
 
 # Animals
 shepherds = Shepherd.order(:created_at).take(6)
+
 for i in 1..50 do
 	eartag = 1600 + i
 	birth_date = Faker::Date.between(7.months.ago, 8.months.ago)
@@ -29,8 +30,6 @@ for i in 1..50 do
 	shepherds.each { |shepherd| shepherd.animals.create!(
 													eartag: eartag,
 													birth_date: birth_date,
-													dam: shepherd.id+1000,
-													sire: shepherd.id+2000,
 													sex: sex,
 													status: "active",
 													status_date: birth_date
@@ -52,6 +51,27 @@ animals.each {|animal| animal.weights.create!(
 									)
 							}
 
+# create pedigree
+shepherds.first.animals.create!(
+												eartag: 1301,
+												birth_date: 10.years.ago,
+												sex: 'ewe',
+												status: "active",
+												status_date: 10.years.ago
+											)
+
+shepherds.first.animals.create!(
+												eartag: 1302,
+												birth_date: 10.years.ago,
+												sex: 'ram',
+												status: "active",
+												status_date: 10.years.ago
+											)
+
+shepherds.first.animals.each { |animal| if animal.eartag != "1301" && animal.eartag != "1302"
+																					animal.update(sire_eartag: "1302", dam_eartag: "1301")
+																				end
+}
 
 # Following relationships
 shepherds = Shepherd.all

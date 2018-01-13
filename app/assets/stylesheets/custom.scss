@@ -1,9 +1,7 @@
-@import "bootstrap-sprockets";
 @import "bootstrap";
+@import "bootstrap-toggle";
 
 /* mixins, variables, etc. */
-
-$gray-medium-light: #eaeaea;
 
 @mixin box_sizing {
 	-moz-box-sizing:     border-box;
@@ -14,16 +12,16 @@ $gray-medium-light: #eaeaea;
 
 /* universal */
 
-body {
-	padding-top: 60px;
-}
-
 section {
 	overflow: auto;
 }
 
 textarea {
 	resize: vertical;
+}
+
+.container {
+	max-width: 1400px;
 }
 
 .center {
@@ -53,7 +51,7 @@ h2 {
 	margin-bottom: 30px;
 	text-align: center;
 	font-weight: normal;
-	color: $gray-light;
+	color: $gray-200;
 }
 
 p {
@@ -63,31 +61,30 @@ p {
 
 
 /* header */
+
 #logo {
-	float: left;
-	margin-right: 10px;
-	font-size: 1.7em;
-	color: #fff;
+	font-size: 2.0em;
 	text-transform: uppercase;
 	letter-spacing: -1px;
 	padding-top: 9px;
 	font-weight: bold;
 
 	&:hover {
-		color: #fff;
 		text-decoration: none
 	}
 }
 
-
+.header {
+	padding-bottom: 10px;
+}
 
 /* footer */
 
 footer {
 	margin-top: 45px;
 	padding-top: 5px;
-	border-top: 1px solid $gray-medium-light;
-	color: $gray-light;
+	border-top: 1px solid $gray-400;
+	color: $gray-200;
 
 	a {
 		color: #555;
@@ -177,7 +174,17 @@ aside {
 		    border: none;
 		}
 
+		label span {
+			padding-bottom: 8px;
+			display: inline-block;
+		}
+		div label.btn {
+			font-size: 14px;
+		}
+
 	}
+
+
 }
 
 span.picture {
@@ -213,7 +220,7 @@ span.picture {
 	a {
 		float: left;
 		padding: 0 10px;
-		border-left: 1px solid $gray-lighter;
+		border-left: 1px solid $gray-200;
 		color: gray;
 
 		&:first-child {
@@ -268,9 +275,9 @@ input {
 }
 
 .field_with_errors {
-	@extend .has-error;
+	@extend .alert-danger;
 	.form-control {
-		color: $state-danger-text;
+		color: $danger;
 	}
 }
 
@@ -296,7 +303,7 @@ input {
 	li {
 		overflow: auto;
 		padding: 10px 0;
-		border-bottom: 1px solid $gray-lighter;
+		border-bottom: 1px solid $gray-200;
 	}
 }
 
@@ -314,7 +321,7 @@ ol.animals {
 		border-bottom: 1px solid #e8e8e8;
 
 		&:hover {
-			background-color: $gray-medium-light;
+			background-color: $gray-400;
 		}
 
 		a {
@@ -338,7 +345,7 @@ ol.animals {
 
 		.ui-tabs-nav {
 			border-bottom-style: solid;
-			border-bottom-color: $gray-medium-light;
+			border-bottom-color: $gray-400;
 			border-bottom-width: 1px;
 			background-color: #FFF;
 
@@ -387,7 +394,16 @@ ol.animals {
 		border-color: #060;
 		}
 	}
-
+	.ewe{
+		label span {
+			padding-bottom: 8px;
+			display: inline-block;
+		}
+		div label.btn {
+			font-size: 14px;
+			align-items:flex-end;
+		}
+	}
 }
 
 
@@ -492,4 +508,70 @@ ol.animals {
     display: inline-block;
     vertical-align: middle;
     float: none;
+}
+
+
+
+.pedigree {
+
+	table {
+	    border-collapse: collapse;
+	    border: none;
+			width: 100%;
+	}
+
+	td {
+		vertical-align: middle;
+		width: 25%;
+		margin: 0;
+		padding: 10px;
+	  border-collapse: collapse;
+
+		a {
+	    border: solid 1px black;
+			border-radius: 4px;
+	    margin: 0;
+	    padding: 10px;
+			text-align: center;
+			width:100%;
+			display:block;
+			text-decoration: none;
+		}
+		a:hover {
+			background-color: $gray-400;
+		}
+
+
+		p {
+	    border: solid 1px black;
+			border-radius: 4px;
+	    margin: 0;
+	    padding: 10px;
+			text-align: center;
+			width:100%;
+			font-size: 16px;
+			line-height: 24px;
+		}
+
+		p.current {
+			background-color: $gray-600;
+			border-color: $gray-600;
+			color: white;
+		}
+
+	}
+}
+
+
+/* Bootstrap Toggle v2.2.2 corrections for Bootsrtap 4*/
+.toggle-off {
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+.toggle.off {
+    border-color: rgba(0, 0, 0, .25);
+}
+
+.toggle-handle {
+    background-color: white;
+    border: thin rgba(0, 0, 0, .25) solid;
 }

@@ -6,6 +6,10 @@ class AnimalTest < ActiveSupport::TestCase
 		date = Date.civil(2015,4,30)
 		@shepherd = shepherds(:michael)
 		@animal = @shepherd.animals.build(eartag: "12345G", birth_date: date)
+		@dam = animals(:dam)
+		@sire = animals(:sire)
+
+		@wether = animals(:wether)
 	end
 
 	test "should be valid" do
@@ -32,35 +36,24 @@ class AnimalTest < ActiveSupport::TestCase
 		assert @animal.valid?
 	end
 
-
 	test "eartag should be at most 20 characters" do
 		@animal.eartag = "a" * 21
 		assert_not @animal.valid?
 	end
 
-	test "dam should be at most 20 characters" do
-		@animal.dam = "a" * 21
-		assert_not @animal.valid?
-	end
-
-	test "sire should be at most 20 characters" do
-		@animal.sire = "a" * 21
-		assert_not @animal.valid?
-	end
-
 	test "dam eartag should be different from lamb's eartag" do
-		@animal.dam = "12345G"
+		@animal.dam_eartag = "12345G"
 		assert_not @animal.valid?
 	end
 
 	test "sire eartag should be different from lamb's eartag" do
-		@animal.sire = "12345G"
+		@animal.sire_eartag = "12345G"
 		assert_not @animal.valid?
 	end
 
 	test "dam and sire should have different eartags" do
-		@animal.dam = "12345G"
-		@animal.sire = "12345G"
+		@animal.dam_eartag = "12345G"
+		@animal.sire_eartag = "12345G"
 		assert_not @animal.valid?
 	end
 
@@ -72,6 +65,51 @@ class AnimalTest < ActiveSupport::TestCase
 	test "should accept a correct sex" do
 		@animal.sex = "wether"
 		assert @animal.valid?
+	end
+
+	test "dam and ram should exist" do
+		@animal.sire_eartag = "ABCD"
+		assert_not @animal.valid?
+
+		@animal.dam_eartag = "ABCD"
+		assert_not @animal.valid?
+	end
+
+	test "dam should be a ewe" do
+		@animal.update(dam: @dam)
+		assert @animal.valid?
+		@animal.update(dam: @sire)
+		assert_not @animal.valid?
+		@animal.update(dam: @wether)
+		assert_not @animal.valid?
+	end
+
+	test "sire should be a ram" do
+		@animal.update(sire: @sire)
+		assert @animal.valid?
+		@animal.update(sire: @dam)
+		assert_not @animal.valid?
+		@animal.update(sire: @wether)
+		assert_not @animal.valid?
+	end
+
+	test "rams should not have children_as_dam" do
+		@animal.update(sire: animals(:sire), dam: animals(:dam))
+		assert @sire.children.size == 1
+		assert @sire.children_as_dam.size == 0
+	end
+
+	test "ewes should not have children_as_sire" do
+		@animal.update(sire: animals(:sire), dam: animals(:dam))
+		assert @dam.children.size == 1
+		assert @dam.children_as_sire.size == 0
+	end
+
+	test "wethers should not have children_as_ram or children_as_dam" do
+		@animal.update(sire: @wether)
+		assert_not @animal.valid?
+		assert @wether.children_as_sire.size == 0
+		assert @wether.children_as_dam.size == 0
 	end
 
 	test "should accept a valid status" do
@@ -98,9 +136,7 @@ class AnimalTest < ActiveSupport::TestCase
 		@other_shepherd = shepherds(:archer)
 		@animal = @other_shepherd.animals.create(eartag: "12346", birth_date: Date.current)
 		@animal.save
-
-		assert_equal "12346", @shepherd.animals.build.eartag
-
+		assert_equal "12347", @shepherd.animals.build.eartag
 
 #need to see what happens if archer adds an animal.
 

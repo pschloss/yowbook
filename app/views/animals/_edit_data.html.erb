@@ -11,11 +11,19 @@
 			<%= f.label :sex %>
 			<%= f.select(:sex, options_for_select([['Unknown', 'unknown'], ['Ewe', 'ewe'], ['Wether','wether'], ['Ram', 'ram'], ['Teaser', 'teaser']], @animal.sex)) %>
 
-			<%= f.label :dam %>
-			<%= f.text_field :dam, class: 'form-control'  %>
+			<div class="form-group row">
+				<div class="col-10">
+					<%= f.label :dam_eartag %>
+					<%= f.text_field :dam_eartag, class: 'form-control dam-eartag', value: @animal.dam_eartag %>
+				</div>
+				<div class="col-2 mt-auto pb-3">
+					<%= f.label :orphan, class: "sr-only" %>
+					<%= f.check_box :orphan, :data => {:checked => "checked", :toggle => "toggle", :on => "Orphan", :off=>"Raised", onstyle: "danger", offstyle: "success", height: "36px", width: "100%"} %>
+				</div>
+			</div>
 
-			<%= f.label :sire %>
-			<%= f.text_field :sire, class: 'form-control'  %>
+			<%= f.label :sire_eartag %>
+			<%= f.text_field :sire_eartag, class: 'form-control', value: @animal.sire_eartag %>
 
 			<%= f.label :status %>
 			<%= f.select(:status, options_for_select([['Active', 'active'], ['Died', 'died'], ['Sold','sold'], ['Culled', 'culled'], ['Stillborn', 'stillborn']], @animal.status)) %>

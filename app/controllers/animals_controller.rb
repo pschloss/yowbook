@@ -23,7 +23,7 @@ class AnimalsController < ApplicationController
 
 	def show
 		@shepherd = Shepherd.find_by(username: params[:username])
-		@animal = Animal.find_by(shepherd_id: @shepherd.id, eartag: params[:eartag])
+		@animal = @shepherd.animals.find_by(eartag: params[:eartag])
 		@weight = @animal.weights.build if logged_in?
 	end
 
@@ -48,7 +48,7 @@ class AnimalsController < ApplicationController
 	private
 
 		def animal_params
-			params.require(:animal).permit(:eartag, :birth_date, :picture, :dam, :sire, :sex, :status, :status_date)
+			params.require(:animal).permit(:eartag, :birth_date, :picture, :dam_id, :sire_id, :sex, :status, :status_date, :dam_eartag, :sire_eartag, :orphan)
 		end
 
 		def correct_shepherd

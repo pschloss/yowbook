@@ -15,10 +15,10 @@ class AnimalsEditTest < ActionDispatch::IntegrationTest
 		assert_template 'animals/show'
 
 		patch animal_path(@animal), params: { animal: { eartag: "",
-																										dam: "1",
-																										sire: "1",
-																										sex: "XXX",
-																										status: "XXX"
+																										dam_eartag: "1",
+																										sire_eartag: "1",
+																										sex: "unknown",
+																										status: "stillborn"
  																										} }
 
 		assert_template partial: 'animals/_edit_data'

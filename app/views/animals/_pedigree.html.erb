@@ -1,0 +1,72 @@
+<div class="pedigree">
+
+	<table>
+		<tr>
+			<td rowspan=8><%= pedigree_link(@animal.eartag, @animal.sex.capitalize.first, "current") %>
+			</td>
+			<td rowspan=4><%= pedigree_link(@animal.pedigree[:sire], "R") %></td>
+			<td rowspan=2><%= pedigree_link(@animal.pedigree[:sire_sire], "R") %></td>
+			<td><%= pedigree_link(@animal.pedigree[:sire_sire_sire], "R") %></td>
+		</tr>
+
+		<tr>
+			<td><%= pedigree_link(@animal.pedigree[:sire_sire_dam], "E") %></td>
+		</tr>
+
+		<tr>
+			<td rowspan=2><%= pedigree_link(@animal.pedigree[:sire_dam], "E") %></td>
+			<td><%= pedigree_link(@animal.pedigree[:sire_dam_sire], "R") %></td>
+		</tr>
+
+		<tr>
+			<td><%= pedigree_link(@animal.pedigree[:sire_dam_dam], "E") %></td>
+		</tr>
+
+		<tr>
+			<td rowspan=4><%= pedigree_link(@animal.pedigree[:dam], "E") %></td>
+			<td rowspan=2><%= pedigree_link(@animal.pedigree[:dam_sire], "R") %></td>
+			<td><%= pedigree_link(@animal.pedigree[:dam_sire_sire], "R") %></td>
+		</tr>
+
+		<tr>
+			<td><%= pedigree_link(@animal.pedigree[:dam_sire_dam], "E") %></td>
+		</tr>
+
+		<tr>
+			<td rowspan=2><%= pedigree_link(@animal.pedigree[:dam_dam], "E") %></td>
+			<td><%= pedigree_link(@animal.pedigree[:dam_dam_sire], "R") %></td>
+		</tr>
+
+		<tr>
+			<td><%= pedigree_link(@animal.pedigree[:dam_dam_dam], "E") %></td>
+		</tr>
+	</table>
+
+
+	<% if @animal.siblings.present? %>
+		<div class="btn-group dropup" style="padding-left:10px;">
+		  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    Siblings
+		  </button>
+		  <div class="dropdown-menu">
+				<% @animal.siblings.reverse.each do |sib| %>
+					<%= pedigree_link(sib.eartag, sib.sex.capitalize.first, "dropdown-item") %>
+				<% end %>
+		  </div>
+		</div>
+	<% end %>
+
+	<% if @animal.children.present? %>
+		<div class="btn-group dropup" style="padding-left:10px;">
+		  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    Progeny
+		  </button>
+		  <div class="dropdown-menu">
+				<% @animal.children.reverse.each do |child| %>
+					<%= pedigree_link(child.eartag, child.sex.capitalize.first, "dropdown-item") %>
+				<% end %>
+		  </div>
+		</div>
+	<% end %>
+
+</div>

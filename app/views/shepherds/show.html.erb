@@ -18,7 +18,7 @@
 			<ol class="animals">
 				<%= render @animals %>
 			</ol>
-			<%= will_paginate @animals %>
+			<%= will_paginate @animals, list_classes: %w(pagination justify-content-center) %>
 		<% end %>
 	</div>
 
