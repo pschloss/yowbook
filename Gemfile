@@ -7,12 +7,11 @@ git_source(:github) do |repo_name|
 end
 
 
-gem 'rails', '~> 5.0.1'
+gem 'rails', '~> 5.1.4'
 gem 'bcrypt', '3.1.11'
 gem 'faker', '~> 1.7', '>= 1.7.1'
 gem 'carrierwave', '~> 1.0'
 gem 'mini_magick', '~> 4.6'
-gem 'fog', '~> 1.38'
 gem 'validates_timeliness', '~> 4.0'
 gem 'friendly_id', '~> 5.2'
 gem 'will_paginate', '~> 3.1', '>= 3.1.5'
@@ -39,6 +38,7 @@ group :development do
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+	gem 'rb-readline', '~> 0.5.3'
 end
 
 group :production do
