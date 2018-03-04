@@ -150,18 +150,52 @@ class Animal < ApplicationRecord
 		litter_name(siblings.length + 1)
 	end
 
+	def n_progeny
+		children == nil ?	0 : children.count
+	end
+
+	def n_weaned
+		count = 0
+
+		if children.present?
+			children.each do |c|
+
+				old_enough = (Date.current-c.birth_date).to_i > 40
+				old_active = (c.status_date - c.birth_date).to_i > 40
+
+				if old_enough and old_active and !c.orphan
+					count += 1
+				end
+
+			end
+		end
+
+		count
+	end
+
+	def n_lambings
+		children.present? ? children.pluck(:birth_date).uniq.length : 0
+	end
 
 	def raised_as
 		if orphan
 			"Orphan"
-		elsif
-			s = siblings.find_by(orphan:FALSE)
-			if s.nil?
-				litter_name(1)
-			else
-				 litter_name(Array(s).length + 1)
+		elsif status == 'stillborn'
+			"Stillborn"
+		elsif status == 'died' and (status_date - birth_date).to_i < 40
+			"Dead"
+		else
+			count = 1
+
+			siblings.each do |s|
+				if !(s.status == 'died' and (s.status_date - s.birth_date).to_i < 40) and !s.orphan
+					count += 1
+				end
 			end
+
+			litter_name(count)
 		end
+
 	end
 
 

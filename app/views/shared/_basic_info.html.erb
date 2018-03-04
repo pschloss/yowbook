@@ -20,7 +20,9 @@
 			<li><span id="label">Born:</span> <span id="born"><%= animal.birth_date %> </li>
 			<li><span id="label">Raised as:</span> <span id="raised_as"><%= animal.raised_as %></li>
 			<li><span id="label">Birth type:</span> <span id="birth_type"><%= animal.birth_type %></li>
-			<li><span id="label">Progeny:</span> <span id="progeny"><% if animal.children == nil %>0<%else%><%= animal.children.count %><% end %></li>
+			<li><span id="label">Progeny:</span> <span id="progeny">
+				<%= animal.n_progeny %> / <%= animal.n_weaned  %> / <%= animal.n_lambings %>
+			</li>
 			<li><span id="label">Last weight:</span> <span id="last_weight"><%= animal.last_weight %></span></li>
 		</ul>
 	</div>
