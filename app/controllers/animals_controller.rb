@@ -10,7 +10,7 @@ class AnimalsController < ApplicationController
 			flash[:success] = "Sheep added!"
 			redirect_to shepherd_path(current_shepherd)
 		else
-			@animals = @shepherd.animals.paginate(page: params[:page])
+			@animals = @shepherd.animals.paginate(page: params[:page], per_page: 25)
 			render 'shepherds/show'
 		end
 	end
