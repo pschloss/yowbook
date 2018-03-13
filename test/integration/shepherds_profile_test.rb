@@ -16,8 +16,9 @@ class ShepherdsProfileTest < ActionDispatch::IntegrationTest
 		assert_select 'img.gravatar'
 		assert_select 'h1', text: @shepherd.name
 		assert_match @shepherd.animals.count.to_s, response.body
-		assert_select 'div.pagination'
-		@shepherd.animals.paginate(page: 1).each do |animal|
+		assert_select 'nav.pagination'
+		@shepherd.animals.paginate(page: 1, per_page: 25).each do |animal|
+			# $stdout.print "#{animal.eartag}\n"
 			assert_match animal.eartag, response.body
 		end
 
@@ -29,7 +30,6 @@ class ShepherdsProfileTest < ActionDispatch::IntegrationTest
 
   test "test profile stats on current_shepherd's page" do
     log_in_as(@shepherd)
-		# get shepherd_path(@shepherd)
     get root_path(@shepherd)
 		follow_redirect!
     assert_template 'shepherds/show'

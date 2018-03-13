@@ -11,7 +11,7 @@ class ShepherdsIndexTest < ActionDispatch::IntegrationTest
 		log_in_as(@admin)
 		get shepherds_path
 		assert_template 'shepherds/index'
-		assert_select 'div.pagination'
+		assert_select 'nav.pagination'
 		first_page_of_shepherds = Shepherd.paginate(page: 1)
 
 		#logged in user should not appear in the list of shepherds

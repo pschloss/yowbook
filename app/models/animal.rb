@@ -160,10 +160,21 @@ class Animal < ApplicationRecord
 		if children.present?
 			children.each do |c|
 
-				old_enough = (Date.current-c.birth_date).to_i > 40
-				old_active = (c.status_date - c.birth_date).to_i > 40
+				# to be weaned...
+				# * not stillborn
+				# * not an orphan
+				# * not be dead before 40 days after birth
+				# don't want to have to assume that the user has updated the status date at/after weaning
 
-				if old_enough and old_active and !c.orphan
+				old_enough = (Date.current-c.birth_date).to_i > 40
+
+				old_active = true	#assume the animal is alive
+				if status != 'active'
+					old_active = (c.status_date - c.birth_date).to_i > 40
+				end
+
+
+				if old_enough and old_active and !c.orphan and status != 'stillborn'
 					count += 1
 				end
 
@@ -178,7 +189,7 @@ class Animal < ApplicationRecord
 	end
 
 	def raised_as
-		if orphan
+		if orphan and status != 'stillborn'
 			"Orphan"
 		elsif status == 'stillborn'
 			"Stillborn"

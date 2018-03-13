@@ -14,7 +14,7 @@
 			<div class="form-group row">
 				<div class="col-10">
 					<%= f.label :dam_eartag %>
-					<%= f.text_field :dam_eartag, class: 'form-control dam-eartag', value: @animal.dam_eartag %>
+					<%= f.text_field :dam_eartag, class: 'form-control dam-eartag', value: @animal.pedigree[:dam] %>
 				</div>
 				<div class="col-2 mt-auto pb-3">
 					<%= f.label :orphan, class: "sr-only" %>
@@ -23,7 +23,7 @@
 			</div>
 
 			<%= f.label :sire_eartag %>
-			<%= f.text_field :sire_eartag, class: 'form-control', value: @animal.sire_eartag %>
+			<%= f.text_field :sire_eartag, class: 'form-control', value: @animal.pedigree[:sire] %>
 
 			<%= f.label :status %>
 			<%= f.select(:status, options_for_select([['Active', 'active'], ['Died', 'died'], ['Sold','sold'], ['Culled', 'culled'], ['Stillborn', 'stillborn']], @animal.status)) %>
