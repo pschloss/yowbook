@@ -28,6 +28,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'rails-controller-testing'
 gem 'bootstrap-toggle-rails', '~> 2.2', '>= 2.2.1.0'
+gem 'loofah', '~>2.2.1'
 
 group :development, :test do
   gem 'sqlite3', '1.3.12'
