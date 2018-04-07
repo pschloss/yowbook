@@ -124,7 +124,6 @@ class AnimalTest < ActiveSupport::TestCase
 	end
 
 	test "next eartag should be one more than previous eartag" do
-
 		@animal = @shepherd.animals.create(eartag: "12345", birth_date: Date.current)
 		@animal.save
 		assert_equal "12346", @shepherd.animals.build.eartag
@@ -137,8 +136,6 @@ class AnimalTest < ActiveSupport::TestCase
 		@animal = @other_shepherd.animals.create(eartag: "12346", birth_date: Date.current)
 		@animal.save
 		assert_equal "12347", @shepherd.animals.build.eartag
-
-#need to see what happens if archer adds an animal.
 
 	end
 end
