@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
-ruby "2.4.3"
+ruby '2.5.3'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails', '~> 5.1.4'
+gem 'rails', '~> 5.2.2'
 gem 'bcrypt', '3.1.11'
 gem 'faker', '~> 1.7', '>= 1.7.1'
 gem 'carrierwave', '~> 1.0'
@@ -28,6 +28,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'rails-controller-testing'
 gem 'bootstrap-toggle-rails', '~> 2.2', '>= 2.2.1.0'
 gem 'loofah', '~>2.2.1'
+gem 'bootsnap',  require: false
 
 group :development, :test do
   gem 'sqlite3', '1.3.12'
@@ -45,5 +46,3 @@ end
 group :production do
 	gem 'pg'
 end
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
