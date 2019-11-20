@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
-ruby '2.5.3'
+ruby '2.6.4'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails', '~> 5.2.2'
+gem 'rails', '~> 5.3.2'
 gem 'bcrypt', '3.1.11'
 gem 'faker', '~> 1.7', '>= 1.7.1'
 gem 'carrierwave', '~> 1.0'
