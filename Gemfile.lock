@@ -114,7 +114,7 @@ GEM
       mini_portile2 (~> 2.4.0)
     pg (1.2.3)
     popper_js (1.16.0)
-    puma (3.12.4)
+    puma (3.12.6)
     rack (2.2.2)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -228,7 +228,7 @@ DEPENDENCIES
   loofah (~> 2.3.1)
   mini_magick (~> 4.6)
   pg
-  puma (~> 3.0)
+  puma (~> 3.12)
   rails (~> 5.2.3)
   rails-controller-testing
   rb-readline (~> 0.5.3)
