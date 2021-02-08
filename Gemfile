@@ -9,7 +9,7 @@ end
 gem 'rails', '~> 5.2.3'
 gem 'bcrypt', '3.1.11'
 gem 'faker', '~> 1.7', '>= 1.7.1'
-gem 'carrierwave', '~> 1.0'
+gem 'carrierwave', '~> 1.3'
 gem 'mini_magick', '~> 4.6'
 gem 'validates_timeliness', '~> 4.0'
 gem 'friendly_id', '~> 5.2'
