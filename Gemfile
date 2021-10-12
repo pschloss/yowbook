@@ -18,7 +18,7 @@ gem 'will_paginate-bootstrap4', '~> 0.1.2'
 gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-ui-rails'
 gem 'filterrific', '~> 2.1', '>= 2.1.2'
-gem 'puma', '~> 3.0'
+gem "puma", ">= 4.3.8"
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
