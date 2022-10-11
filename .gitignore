@@ -28,3 +28,4 @@ aws_info
 scratch
 .DS_Store
 
+Gemfile.lock
