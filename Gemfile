@@ -27,7 +27,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'rails-controller-testing'
 gem 'bootstrap-toggle-rails', '~> 2.2', '>= 2.2.1.0'
-gem 'loofah', '~>2.3.1'
+gem 'loofah', '>= 2.19.1'
 gem 'bootsnap',  require: false
 
 group :development, :test do
